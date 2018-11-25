@@ -620,6 +620,7 @@
  }
 
 
+
  //свнести депозит
  Exchange.prototype.makeDeposit = async function(fromWhere, amount, CALLBACK) {
  	let temporaryValue;
