@@ -1,0 +1,72 @@
+{
+	"exchangeAdress": "0x27f5D11e2523B069b1e84F01C0b3B3B193522489",
+	"exchangeABI":
+	[
+		//order
+		{
+			"constant": false,
+			"inputs":
+			[
+				{"name": "getToken",   "type": "address"},
+				{"name": "getAmount",  "type": "uint256"},
+				{"name": "giveToken",  "type": "address"},
+				{"name": "giveAmount", "type": "uint256"},
+				{"name": "expires",    "type": "uint256"},
+				{"name": "nonce",      "type": "uint256"}
+			],
+			//переименовать когда сделаю функцию
+			"name": "order",
+			"outputs": [],
+			"payable": false,
+			"type": "function",
+			"stateMutability": "nonpayable"
+		},
+
+		//пропустил order fills
+
+		//withdrawulFunds
+		{
+			"constant": false,
+			"inputs":
+			[
+				{"name": "amount",     "type": "uint256"}
+			],
+			"name": "withdrawulFunds",
+			"outputs": [],
+			"payable": false,
+			"type": "function",
+			"stateMutability": "nonpayable"
+		},
+
+		//deposittoken
+		{
+			"constant": false,
+			"inputs":
+			[
+				{"name": "token",      "type": "address"},
+				{"name": "amount",     "type": "uint256"}
+			],
+			"name": "makeDepositToken",
+			"outputs": [],
+			"payable": false,
+			"type": "function",
+			"stateMutability": "nonpayable"
+		},
+
+		//tokens
+		{
+			"constant": true,
+			"inputs":
+			[
+				{"name": "",           "type": "address"},
+				{"name": ""}
+			]
+		}
+	]
+
+
+
+
+
+
+}
