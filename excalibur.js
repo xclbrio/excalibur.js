@@ -36,17 +36,16 @@ class Exchange {
 		this.exchangeABI = Settings.exchangeABI;
 		//Create Contract Adress constant for Exchange
 		this.exchangeAdress = Settings.exchangeAdress;
+		//This object-variable stores the Smart Contract created by "web3.js"
 		this.exchangeContract = new web3.eth.Contract(this.exchangeABI, this.exchangeAdress);
-		this.libraryVersion = "0.0.1";
+		//This variable stores the library version
+		this.libraryVersion = Settings.libraryVersion;
 	}
 
 
 	//Get account details
 	getAccount() {
-
-
-
-
+		
 	}
 
 
