@@ -16,7 +16,7 @@
 //Binding a class "Web3" to a constant
 const Web3 = require("web3");
 //Binding a file "settings.json"
-const Settings = require("./settings.json");
+//<script src = "./settings.js"> </script>/
 //Announcement of the constant "providerID", you can use your provider ID value
 const providerID = "wss://kovan.infura.io/ws";
 //Creating "web3" constant from class "Web3"
@@ -45,7 +45,7 @@ class Exchange {
 
 	//Get account details
 	getAccount() {
-		
+
 	}
 
 

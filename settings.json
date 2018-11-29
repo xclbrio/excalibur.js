@@ -1,13 +1,45 @@
+/*
+	-----------------------------------------------------
+	|			   Decentralized Exchange	 			|
+	-----------------------------------------------------
+	|		  Exchange smart contract methods			|
+	|                 File Description				    |
+	|   												|
+	|        This file stores the basic settings		|
+	|     for the library, which include the address 	|
+	|      of the exchange, its binary interface, 		|
+	|   the binary interface of the token and the pair  |
+	|           for the exchange of tokens.				|
+	|													|
+	-----------------------------------------------------
+ */
 {
-	"libraryVersion": "0.0.1",
+
+	//This parameter stores the library version
+	"libraryVersion":  "0.0.1",
+
+	//This parameter stores addres of the exchange
 	"exchangeAdress": "0x27f5D11e2523B069b1e84F01C0b3B3B193522489",
-	"exchangeABI":
-	[
-		//order
+
+	//This structure stores the binary interface of the exchange
+	"exchangeABI": [
+
+		//Constructor of this ABI
 		{
+			"type": "constructor",
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"inputs": []
+		}
+
+		//Library function name "getOrder" | Web3.eth function name "order"
+		{
+			"type": "function",
+			"name": "order",
 			"constant": false,
-			"inputs":
-			[
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"inputs": [
 				{"name": "getToken",   "type": "address"},
 				{"name": "getAmount",  "type": "uint256"},
 				{"name": "giveToken",  "type": "address"},
@@ -15,226 +47,632 @@
 				{"name": "expires",    "type": "uint256"},
 				{"name": "nonce",      "type": "uint256"}
 			],
-			//переименовать когда сделаю функцию
-			"name": "getOrder",
-			"outputs": [],
-			"payable": false,
-			"type": "function",
-			"stateMutability": "nonpayable"
+			"outputs": []
 		},
 
-		//order fills skipped by me(optional) 
-
-		//withdraw
+		//Library function name "orderFills" | Web3.eth function name "orderFills"
 		{
+			"type": "function",
+			"name": "orderFills",
+			"constant": true,
+			"payable": false,
+			"stateMutability": "view",
+			"inputs": [
+				{"name": "",           "type": "address"},
+				{"name": "",           "type": "bytes32"}
+			],
+			"outputs": [
+				{"name": "",           "type": "uint256"}
+			]
+		},
+
+		//Library function name "withdrawalFunds" | Web3.eth function name "withdraw"
+		{
+			"type": "function",
+			"name": "withdrawalFunds",
 			"constant": false,
-			"inputs":
-			[
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"inputs": [
 				{"name": "amount",     "type": "uint256"}
 			],
-			"name": "withdrawulFunds",
-			"outputs": [],
-			"payable": false,
-			"type": "function",
-			"stateMutability": "nonpayable"
+			"outputs": []
 		},
 
-		//deposittoken
+		//Library function name "makeTokenDeposit" | Web3.eth function name "depositToken"
 		{
+			"type": "function",
+			"name": "makeTokenDeposit",
 			"constant": false,
-			"inputs":
-			[
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"inputs": [
 				{"name": "token",      "type": "address"},
 				{"name": "amount",     "type": "uint256"}
 			],
-			"name": "makeDepositToken",
-			"outputs": [],
-			"payable": false,
-			"type": "function",
-			"stateMutability": "nonpayable"
+			"outputs": []
 		},
 
-		//tokens
+		//Library function name "getTokens" | Web3.eth function name "tokens"
 		{
+			"type": "function",
+			"name": "getTokens",
 			"constant": true,
-			"inputs":
-			[
+			"payable": false,
+			"stateMutability": "view",
+			"inputs": [
 				{"name": "",           "type": "address"},
 				{"name": "",           "type": "address"}
 			],
-			"name": "getTokens",
-			"outputs":
-			[
-				{"name": "",		   "type": "uint256"}
-			],
-			"payable": false,
-			"type": "function",
-			"stateMutability": "view"
+			"outputs": [
+				{"name": "",           "type": "uint256"}
+			]
 		},
 
-		//tradeState skipped by me (optional)
-
-		//withdrawToken
+		//Library function name "swapTokensState" | Web3.eth function name "tradeState"
 		{
-			"constant": false,
-			"inputs":
-			[
-				{"name": "token",	   "type": "address"},
-				{"name": "amount",	   "type": "uint256"}
-			],
-			"name": "withdrawulTokens",
-			"outputs": [],
-			"payable": false,
 			"type": "function",
-			"stateMutability": "nonpayable"
-		},
-
-		//checkAdmin
-		{
+			"name": "swapTokensState",
 			"constant": true,
+			"payable": false,
+			"stateMutability": "view",
 			"inputs": [],
+			"outputs": [
+				{"name": "",           "type": "bool"   }
+			]
+		},
+
+		//Library function name "withdrawalTokens" | Web3.eth function name "withdrawToken"
+		{
+			"type": "function",
+			"name": "withdrawalTokens",
+			"constant": false,
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"inputs": [ 
+				{"name": "token",      "type": "address"},
+				{"name": "amount",     "type": "uint256"}
+			],
+			"outputs": []
+		},
+
+		//Library function name "checkAdmin" | Web3.eth function name "checkAdmin"
+		{
+			"type": "function",
 			"name": "checkAdmin",
-			"outputs":
-			[
-				{"name": "",           "type": "bool"}
-			],
-			"payable": false,
-			"type": "function",
-			"stateMutability": "view"
-		},
-
-		//orders
-		{
 			"constant": true,
-			"inputs":
-			[
-				{"name": "",		   "type": "address"},
-				{"name": "", 		   "type": "bytes32"}
-			],
-			"name": "orders",
-			"outputs":
-			[
-				{"name": "", 		   "type": "bool"}
-			],
 			"payable": false,
-			"type": "function",
-			"stateMutability": "view"
-		},
-
-		//deposit
-		{
-			"constant": false,
+			"stateMutability": "view",
 			"inputs": [],
+			"outputs": [
+				{"name": "",           "type": "bool"   }
+			]
+		},
+
+		//Library function name "getOrders" | Web3.eth function name "orders"
+		{
+			"type": "function",
+			"name": "orders",
+			"constant": true,
+			"payable": false,
+			"stateMutability": "view",
+			"inputs": [
+				{"name": "",           "type": "address"},
+				{"name": "",           "type": "bytes32"}
+			],
+			"outputs": [
+				{"name": "",           "type": "bool"   }
+			]
+		},
+
+		//Library function name "makeDeposit" | Web3.eth function name "deposit"
+		{
+			"type": "function",
 			"name": "makeDeposit",
-			"outputs": [],
+			"constant": false,
 			"payable": true,
-			"type": "function",
-			"stateMutability": "payable"
+			"stateMutability": "payable",
+			"inputs": [],
+			"outputs": []
 		},
 
-
-		//cancelOrder
+		//Library function name "cancelOrder" | Web3.eth function name "cancelOrder"
 		{
-			"constant": false,
-			"inputs":
-			[
-				{"name": "gettoken",   "type": "address"},
-				{"name": "getAmount",  "type": "uint256"},
-				{"name": "giveToken",  "type": "address"},
-				{"name": "giveAmount", "type": "uint256"},
-				{"name": "expires",    "type": "uint256"},
-				{"name": "nonce",      "type": "uint256"},
-				{"name": "V",		   "type": "uint8"  },
-				{"name": "R",		   "type": "bytes32"},
-				{"name": "S",		   "type": "bytes32"},
-				{"name": "pair",	   "type": "string" }
-			],
+			"type": "function",
 			"name": "cancelOrder",
-			"outputs": [],
-			"payable": false,
-			"type": "function",
-			"stateMutability": "nonpayable"
-		},
-
-		//changeTradeState
-		{
 			"constant": false,
-			"inputs":
-			[
-				{"name": "state",	   "type": "bool"}
-			],
-			"name": "changeTradeState",
-			"outputs": [],
 			"payable": false,
-			"type": "function",
-			"stateMutability": "nonpayable"
-		},
-
-		//trade
-		{
-			"constant": false,
-			"inputs":
-			[
+			"stateMutability": "nonpayable",
+			"inputs": [
 				{"name": "getToken",   "type": "address"},
 				{"name": "getAmount",  "type": "uint256"},
 				{"name": "giveToken",  "type": "address"},
 				{"name": "giveAmount", "type": "uint256"},
 				{"name": "expires",    "type": "uint256"},
 				{"name": "nonce",      "type": "uint256"},
-				{"name": "user",	   "type": "address"},
-				{"name": "V",		   "type": "uint8"  },
+				{"name": "V",          "type": "uint8"  },
 				{"name": "R",          "type": "bytes32"},
-				{"name": "S",		   "type": "bytes32"},
-				{"name": "amount",	   "type": "uint256"},
-				{"name": "pair",	   "type": "string" }
+				{"name": "S",          "type": "bytes32"},
+				{"name": "pair",       "type": "string" }
 			],
-			"name": "trade",
-			"outputs": [],
-			"payable": false,
-			"type": "function",
-			"stateMutability": "nonpayable"
+			"outputs": []
 		},
 
-		//transferOwnership
+		//Library function name "changeSwapTokensState" | Web3.eth function name "changeTradeState"
 		{
+			"type": "function",
+			"name": "changeSwapTokensState",
 			"constant": false,
-			"inputs":
-			[
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"inputs": [
+				{"name": "state",     "type": "bool"    }
+			],
+			"outputs": []
+		},
+
+		//Library function name "swapTokens" | Web3.eth function name "trade"
+		{
+			"type": "function",
+			"name": "swapTokens",
+			"constant": false,
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"inputs": [
+				{"name": "getToken",   "type": "address"},
+				{"name": "getAmount",  "type": "uint256"},
+				{"name": "giveToken",  "type": "address"},
+				{"name": "giveAmount", "type": "uint256"},
+				{"name": "expires",    "type": "uint256"},
+				{"name": "nonce",      "type": "uint256"},
+				{"name": "user",       "type": "address"},
+				{"name": "V",          "type": "uint8"  },
+				{"name": "R",          "type": "bytes32"},
+				{"name": "S",          "type": "bytes32"},
+				{"name": "amount",     "type": "uint256"},
+				{"name": "pair",       "type": "string" }
+			],
+			"outputs": []
+		},
+
+		//Library function name "transferOwnership" | Web3.eth function name "transferOwnership"
+		{
+			"type": "function",
+			"name": "transferOwnership",
+			"constant": false,
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"inputs": [
 				{"name": "newAdmin",   "type": "address"}
 			],
-			"name": "transferOwnership",
-			"outputs": [],
-			"payable": false,
-			"type": "function",
-			"stateMutability": "nonpayable"
+			"outputs": []
 		},
 
-		//balanceOf
+		//Library function name "getUserBalance" | Web3.eth function name "balanceOf"
+		{
+			"type": "function",
+			"name": "getUserBalance",
+			"constant": true,
+			"payable": false,
+			"stateMutability": "view",
+			"inputs": [
+				{"name": "token",      "type": "address"},
+				{"name": "user",       "type": "address"}
+			],
+			"outputs": [
+				{"name": "",           "type": "uint256"}
+			]
+		},
+
+		//Library function name "admin" | Web3.eth function name "admin"
+		{
+			"type": "function",
+			"name": "admin",
+			"constant": true,
+			"payable": false,
+			"stateMutability": "view",
+			"inputs": [],
+			"outputs": [
+				{"name": "",           "type": "address"}
+			]
+		},
+
+		//This is ABI "OrderEvent"
+		{
+			"type": "event",
+			"name": "OrderEvent",
+			"inputs": [
+				{"indexed": false, "name": "getToken",   "type": "address"},
+				{"indexed": false, "name": "getAmount",  "type": "uint256"},
+				{"indexed": false, "name": "giveToken",  "type": "address"},
+				{"indexed": false, "name": "giveAmount", "type": "uint256"},
+				{"indexed": false, "name": "expires",    "type": "uint256"},
+				{"indexed": false, "name": "nonce",      "type": "uint256"},
+				{"indexed": false, "name": "user",       "type": "address"},
+				{"indexed": false, "name": "hash",       "type": "bytes32"}
+			],
+			"anonymous": false
+		},
+
+		//This is ABI "CancelEvent"
+		{
+			"type": "event",
+			"name": "CancelEvent",
+			"inputs": [
+				{"indexed": false, "name": "getToken",   "type": "address"},
+				{"indexed": false, "name": "getAmount",  "type": "uint256"},
+				{"indexed": false, "name": "giveToken",  "type": "address"},
+				{"indexed": false, "name": "giveAmount", "type": "uint256"},
+				{"indexed": false, "name": "expires",    "type": "uint256"},
+				{"indexed": false, "name": "nonce",      "type": "uint256"},
+				{"indexed": false, "name": "user",       "type": "address"},
+				{"indexed": false, "name": "V",          "type": "uint8"  },
+				{"indexed": false, "name": "R",          "type": "bytes32"},
+				{"indexed": false, "name": "S",          "type": "bytes32"},
+				{"indexed": false, "name": "hash",       "type": "bytes32"},
+				{"indexed": false, "name": "pair",       "type": "string" }
+			],
+			"anonymous": false
+		},
+
+		//This is ABI "SwapTokensEvent"
+		{
+			"type": "event",
+			"name": "SwapTokensEvent",
+			"inputs": [
+				{"indexed": false, "name": "getToken",   "type": "address"},
+				{"indexed": false, "name": "getAmount",  "type": "uint256"},
+				{"indexed": false, "name": "giveToken",  "type": "address"},
+				{"indexed": false, "name": "giveAmount", "type": "uint256"},
+				{"indexed": false, "name": "getValue",   "type": "address"},
+				{"indexed": false, "name": "giveValue",  "type": "address"},
+				{"indexed": false, "name": "hash",       "type": "bytes32"},
+				{"indexed": false, "name": "pair",       "type": "string" }
+			],
+			"anonymous": false
+		},
+
+		//This is ABI "DepositEvent"
+		{
+			"type": "event",
+			"name": "DepositEvent",
+			"inputs": [
+				{"indexed": false, "name": "token",      "type": "address"},
+				{"indexed": false, "name": "user",       "type": "address"},
+				{"indexed": false, "name": "amount",     "type": "uint256"},
+				{"indexed": false, "name": "balance",    "type": "uint256"}
+			],
+			"anonymous": false
+		},
+
+		//This if ABI "WithdrawalEvent"
+		{
+			"type": "event",
+			"name": "WithdrawalEvent",
+			"inputs": [
+				{"indexed": false, "name": "token",      "type": "address"},
+				{"indexed": false, "name": "user",       "type": "address"},
+				{"indexed": false, "name": "amount",     "type": "uint256"},
+				{"indexed": false, "name": "balance",    "type": "uint256"}
+			],
+			"anonymous": false
+		}
+	],
+
+
+
+
+	//This structure stores the binary interface of the token
+	"tokenABI": [
 		{
 			"constant": true,
-			"inputs":
-			[
-				{"name": "token",      "type": "address"},
-				{"name": "user",       "type": "address"},
-			],
-			"name": "getUserBalance",
-			"outputs":
-			[
-				{"name": "",           "type": "uint256"}
+			"inputs": [],
+			"name": "name",
+			"outputs": [
+				{
+					"name": "",
+					"type": "string"
+				}
 			],
 			"payable": false,
-			"type": "function",
-			"stateMutability": "view"
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"constant": false,
+			"inputs": [
+				{
+					"name": "_spender",
+					"type": "address"
+				},
+				{
+					"name": "_value",
+					"type": "uint256"
+				}
+			],
+			"name": "approve",
+			"outputs": [
+				{
+					"name": "success",
+					"type": "bool"
+				}
+			],
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"constant": true,
+			"inputs": [],
+			"name": "totalSupply",
+			"outputs": [
+				{
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"payable": false,
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"constant": false,
+			"inputs": [
+				{
+					"name": "_from",
+					"type": "address"
+				},
+				{
+					"name": "_to",
+					"type": "address"
+				},
+				{
+					"name": "_value",
+					"type": "uint256"
+				}
+			],
+			"name": "transferFrom",
+			"outputs": [
+				{
+					"name": "success",
+					"type": "bool"
+				}
+			],
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"constant": true,
+			"inputs": [],
+			"name": "decimals",
+			"outputs": [
+				{
+					"name": "",
+					"type": "uint8"
+				}
+			],
+			"payable": false,
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"constant": true,
+			"inputs": [
+				{
+					"name": "",
+					"type": "address"
+				}
+			],
+			"name": "balanceOf",
+			"outputs": [
+				{
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"payable": false,
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"constant": true,
+			"inputs": [],
+			"name": "owner",
+			"outputs": [
+				{
+					"name": "",
+					"type": "address"
+				}
+			],
+			"payable": false,
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"constant": true,
+			"inputs": [],
+			"name": "symbol",
+			"outputs": [
+				{
+					"name": "",
+					"type": "string"
+				}
+			],
+			"payable": false,
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"constant": false,
+			"inputs": [
+				{
+					"name": "_to",
+					"type": "address"
+				},
+				{
+					"name": "_value",
+					"type": "uint256"
+				}
+			],
+			"name": "transfer",
+			"outputs": [],
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"constant": false,
+			"inputs": [
+				{
+					"name": "_spender",
+					"type": "address"
+				},
+				{
+					"name": "_value",
+					"type": "uint256"
+				},
+				{
+					"name": "_extraData",
+					"type": "bytes"
+				}
+			],
+			"name": "approveAndCall",
+			"outputs": [
+				{
+					"name": "success",
+					"type": "bool"
+				}
+			],
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"constant": true,
+			"inputs": [
+				{
+					"name": "",
+					"type": "address"
+				},
+				{
+					"name": "",
+					"type": "address"
+				}
+			],
+			"name": "allowance",
+			"outputs": [
+				{
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"payable": false,
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"constant": true,
+			"inputs": [],
+			"name": "adminVer",
+			"outputs": [
+				{
+					"name": "",
+					"type": "bool"
+				}
+			],
+			"payable": false,
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"type": "constructor"
+		},
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": true,
+					"name": "from",
+					"type": "address"
+				},
+				{
+					"indexed": true,
+					"name": "to",
+					"type": "address"
+				},
+				{
+					"indexed": false,
+					"name": "value",
+					"type": "uint256"
+				}
+			],
+			"name": "Transfer",
+			"type": "event"
 		}
+	],
 
-
-
-
-
-
-
-	]
-
-
+	//This structure stores the binary interface of the pair to exchange tokens
+	"pairsABI": [
+			{
+				"name": "bnb/eth",
+				"path": "bnb_eth",
+				"symbols": ["bnb", "eth"],
+				"fullName": ["binance-coin", "Ethereum"],
+				"tokens": ["0x01e48b0714b958b29e2899c46510fd76189f5768", "0x0000000000000000000000000000000000000000"]
+			},
+			{
+				"name": "omg/eth",
+				"path": "omg_eth",
+				"symbols": ["omg", "eth"],
+				"fullName": ["omiseGo", "Ethereum"],
+				"tokens": ["0xbc5884b939d1d8920b0dd319009afc261a2a29a6", "0x0000000000000000000000000000000000000000"]
+			},
+			{
+				"name": "zrx/eth",
+				"path": "zrx_eth",
+				"symbols": ["zrx", "eth"],
+				"fullName": ["0x", "Ethereum"],
+				"tokens": ["0xe425e15800e5e594a7bc2289a5f84379f1d329f9", "0x0000000000000000000000000000000000000000"]
+			},
+			{
+				"name": "mkr/eth",
+				"path": "mkr_eth",
+				"symbols": ["mkr", "eth"],
+				"fullName": ["Maker", "Ethereum"],
+				"tokens": ["0xf7228608a292c34b48286035c57306fdc28796e5", "0x0000000000000000000000000000000000000000"]
+			},
+			{
+				"name": "omg/bnb",
+				"path": "omg_bnb",
+				"symbols": ["omg", "bnb"],
+				"fullName": ["omiseGo", "binance-coin"],
+				"tokens": ["0xbc5884b939d1d8920b0dd319009afc261a2a29a6", "0x01e48b0714b958b29e2899c46510fd76189f5768"]
+			},
+			{
+				"name": "omg/zrx",
+				"path": "omg_zrx",
+				"symbols": ["omg", "zrx"],
+				"fullName": ["omiseGo", "0x"],
+				"tokens": ["0xbc5884b939d1d8920b0dd319009afc261a2a29a6", "0xe425e15800e5e594a7bc2289a5f84379f1d329f9"]
+			},
+			{
+				"name": "omg/mkr",
+				"path": "omg_mkr",
+				"symbols": ["omg", "mkr"],
+				"fullName": ["omiseGo", "Maker"],
+				"tokens": ["0xbc5884b939d1d8920b0dd319009afc261a2a29a6", "0xf7228608a292c34b48286035c57306fdc28796e5"]
+			},
+			{
+				"name": "mkr/zrx",
+				"path": "mkr_zrx",
+				"symbols": ["mkr", "zrx"],
+				"fullName": ["Maker", "0x"],
+				"tokens": ["0xf7228608a292c34b48286035c57306fdc28796e5", "0xe425e15800e5e594a7bc2289a5f84379f1d329f9"]
+			}
+		]
 
 }
