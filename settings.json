@@ -1,369 +1,624 @@
-/*
-	-----------------------------------------------------
-	|			   Decentralized Exchange	 			|
-	-----------------------------------------------------
-	|		  Exchange smart contract methods			|
-	|                 File Description				    |
-	|   												|
-	|        This file stores the basic settings		|
-	|     for the library, which include the address 	|
-	|      of the exchange, its binary interface, 		|
-	|   the binary interface of the token and the pair  |
-	|           for the exchange of tokens.				|
-	|													|
-	-----------------------------------------------------
- */
 {
-
-	//This parameter stores the library version
-	"libraryVersion":  "0.0.1",
-
-	//This parameter stores addres of the exchange
-	"exchangeAdress": "0x27f5D11e2523B069b1e84F01C0b3B3B193522489",
-
-	//This structure stores the binary interface of the exchange
-	"exchangeABI": [
-
-		//Constructor of this ABI
+	"firstProviderID": "wss://kovan.infura.io/ws",
+	"secondProviderID": "wss://infura.io/ws",
+	"firstExchangeAddress": "0x27f5D11e2523B069b1e84F01C0b3B3B193522489",
+	"secondExchangeAddress": "0x9419fbecfa0a9e38a96be2d818daa13dca72396e",
+	"libraryVersion": "0.0.5",
+	"apiURL": "https://kovan.api.xclbr.io/v0",
+	"wsURL": "https://kovan.ws.xclbr.io",
+	"mongodbURL": "mongodb://admin:admin1@ds261660.mlab.com:61660/heroku_lsn55dj3",
+	"mongodbLocalURL": "mongodb://localhost:27017/exchange26",
+	"ordersCollection": "orders",
+	"tradeHistoryCollection": "tradeHistory",
+	"priceChartCollection": "priceChart",
+	"apiVersion": "0.1",
+	"providers": {
+		"p1": "ws://localhost:8545",
+		"p2": "ws://mainnet.infura.io/GiDCavBXupdlU3zX2SVo",
+		"p3": "ws://kovan.infura.io/GiDCavBXupdlU3zX2SVo",
+		"p4": "wss://kovan.infura.io/ws"
+	},
+	"network": {
+		"name": "Kovan",
+		"etherscan": "https://kovan.etherscan.io/"
+	},
+	"chat": "ws://167.99.200.35:8080",
+	"blockSpeed": 7.28,
+	"apiPort": 8000,
+	"eventsStartBlock": 7865321, 
+	"eventsEndBlock": "latest", 
+	"paginationLimit": 100,
+	"isLocal": 0,
+	"exchangeAddress": "0x27f5D11e2523B069b1e84F01C0b3B3B193522489",
+	"exchangeAbi":
+	[
 		{
-			"type": "constructor",
-			"payable": false,
-			"stateMutability": "nonpayable",
-			"inputs": []
-		}
-
-		//Library function name "getOrder" | Web3.eth function name "order"
-		{
-			"type": "function",
+			"constant": false,
+			"inputs": [
+				{
+					"name": "tokenGet",
+					"type": "address"
+				},
+				{
+					"name": "amountGet",
+					"type": "uint256"
+				},
+				{
+					"name": "tokenGive",
+					"type": "address"
+				},
+				{
+					"name": "amountGive",
+					"type": "uint256"
+				},
+				{
+					"name": "expires",
+					"type": "uint256"
+				},
+				{
+					"name": "nonce",
+					"type": "uint256"
+				}
+			],
 			"name": "order",
-			"constant": false,
+			"outputs": [],
 			"payable": false,
-			"stateMutability": "nonpayable",
-			"inputs": [
-				{"name": "getToken",   "type": "address"},
-				{"name": "getAmount",  "type": "uint256"},
-				{"name": "giveToken",  "type": "address"},
-				{"name": "giveAmount", "type": "uint256"},
-				{"name": "expires",    "type": "uint256"},
-				{"name": "nonce",      "type": "uint256"}
-			],
-			"outputs": []
-		},
-
-		//Library function name "orderFills" | Web3.eth function name "orderFills"
-		{
 			"type": "function",
+			"stateMutability": "nonpayable"
+		},
+		{
+			"constant": true,
+			"inputs": [
+				{
+					"name": "",
+					"type": "address"
+				},
+				{
+					"name": "",
+					"type": "bytes32"
+				}
+			],
 			"name": "orderFills",
-			"constant": true,
-			"payable": false,
-			"stateMutability": "view",
-			"inputs": [
-				{"name": "",           "type": "address"},
-				{"name": "",           "type": "bytes32"}
-			],
 			"outputs": [
-				{"name": "",           "type": "uint256"}
-			]
-		},
-
-		//Library function name "withdrawalFunds" | Web3.eth function name "withdraw"
-		{
-			"type": "function",
-			"name": "withdrawalFunds",
-			"constant": false,
-			"payable": false,
-			"stateMutability": "nonpayable",
-			"inputs": [
-				{"name": "amount",     "type": "uint256"}
+				{
+					"name": "",
+					"type": "uint256"
+				}
 			],
-			"outputs": []
-		},
-
-		//Library function name "makeTokenDeposit" | Web3.eth function name "depositToken"
-		{
-			"type": "function",
-			"name": "makeTokenDeposit",
-			"constant": false,
 			"payable": false,
-			"stateMutability": "nonpayable",
-			"inputs": [
-				{"name": "token",      "type": "address"},
-				{"name": "amount",     "type": "uint256"}
-			],
-			"outputs": []
-		},
-
-		//Library function name "getTokens" | Web3.eth function name "tokens"
-		{
 			"type": "function",
-			"name": "getTokens",
+			"stateMutability": "view"
+		},
+		{
+			"constant": false,
+			"inputs": [
+				{
+					"name": "amount",
+					"type": "uint256"
+				}
+			],
+			"name": "withdraw",
+			"outputs": [],
+			"payable": false,
+			"type": "function",
+			"stateMutability": "nonpayable"
+		},
+		{
+			"constant": false,
+			"inputs": [
+				{
+					"name": "token",
+					"type": "address"
+				},
+				{
+					"name": "amount",
+					"type": "uint256"
+				}
+			],
+			"name": "depositToken",
+			"outputs": [],
+			"payable": false,
+			"type": "function",
+			"stateMutability": "nonpayable"
+		},
+		{
 			"constant": true,
-			"payable": false,
-			"stateMutability": "view",
 			"inputs": [
-				{"name": "",           "type": "address"},
-				{"name": "",           "type": "address"}
+				{
+					"name": "",
+					"type": "address"
+				},
+				{
+					"name": "",
+					"type": "address"
+				}
 			],
+			"name": "tokens",
 			"outputs": [
-				{"name": "",           "type": "uint256"}
-			]
-		},
-
-		//Library function name "swapTokensState" | Web3.eth function name "tradeState"
-		{
-			"type": "function",
-			"name": "swapTokensState",
-			"constant": true,
+				{
+					"name": "",
+					"type": "uint256"
+				}
+			],
 			"payable": false,
-			"stateMutability": "view",
+			"type": "function",
+			"stateMutability": "view"
+		},
+		{
+			"constant": true,
 			"inputs": [],
+			"name": "tradeState",
 			"outputs": [
-				{"name": "",           "type": "bool"   }
-			]
-		},
-
-		//Library function name "withdrawalTokens" | Web3.eth function name "withdrawToken"
-		{
-			"type": "function",
-			"name": "withdrawalTokens",
-			"constant": false,
-			"payable": false,
-			"stateMutability": "nonpayable",
-			"inputs": [ 
-				{"name": "token",      "type": "address"},
-				{"name": "amount",     "type": "uint256"}
+				{
+					"name": "",
+					"type": "bool"
+				}
 			],
-			"outputs": []
-		},
-
-		//Library function name "checkAdmin" | Web3.eth function name "checkAdmin"
-		{
+			"payable": false,
 			"type": "function",
+			"stateMutability": "view"
+		},
+		{
+			"constant": false,
+			"inputs": [
+				{
+					"name": "token",
+					"type": "address"
+				},
+				{
+					"name": "amount",
+					"type": "uint256"
+				}
+			],
+			"name": "withdrawToken",
+			"outputs": [],
+			"payable": false,
+			"type": "function",
+			"stateMutability": "nonpayable"
+		},
+		{
+			"constant": true,
+			"inputs": [],
 			"name": "checkAdmin",
-			"constant": true,
-			"payable": false,
-			"stateMutability": "view",
-			"inputs": [],
 			"outputs": [
-				{"name": "",           "type": "bool"   }
-			]
-		},
-
-		//Library function name "getOrders" | Web3.eth function name "orders"
-		{
+				{
+					"name": "",
+					"type": "bool"
+				}
+			],
+			"payable": false,
 			"type": "function",
+			"stateMutability": "view"
+		},
+		{
+			"constant": true,
+			"inputs": [
+				{
+					"name": "",
+					"type": "address"
+				},
+				{
+					"name": "",
+					"type": "bytes32"
+				}
+			],
 			"name": "orders",
-			"constant": true,
-			"payable": false,
-			"stateMutability": "view",
-			"inputs": [
-				{"name": "",           "type": "address"},
-				{"name": "",           "type": "bytes32"}
-			],
 			"outputs": [
-				{"name": "",           "type": "bool"   }
-			]
-		},
-
-		//Library function name "makeDeposit" | Web3.eth function name "deposit"
-		{
+				{
+					"name": "",
+					"type": "bool"
+				}
+			],
+			"payable": false,
 			"type": "function",
-			"name": "makeDeposit",
+			"stateMutability": "view"
+		},
+		{
 			"constant": false,
+			"inputs": [],
+			"name": "deposit",
+			"outputs": [],
 			"payable": true,
-			"stateMutability": "payable",
-			"inputs": [],
-			"outputs": []
-		},
-
-		//Library function name "cancelOrder" | Web3.eth function name "cancelOrder"
-		{
 			"type": "function",
+			"stateMutability": "payable"
+		},
+		{
+			"constant": false,
+			"inputs": [
+				{
+					"name": "tokenGet",
+					"type": "address"
+				},
+				{
+					"name": "amountGet",
+					"type": "uint256"
+				},
+				{
+					"name": "tokenGive",
+					"type": "address"
+				},
+				{
+					"name": "amountGive",
+					"type": "uint256"
+				},
+				{
+					"name": "expires",
+					"type": "uint256"
+				},
+				{
+					"name": "nonce",
+					"type": "uint256"
+				},
+				{
+					"name": "v",
+					"type": "uint8"
+				},
+				{
+					"name": "r",
+					"type": "bytes32"
+				},
+				{
+					"name": "s",
+					"type": "bytes32"
+				},
+				{
+					"name": "pair",
+					"type": "string"
+				}
+			],
 			"name": "cancelOrder",
-			"constant": false,
+			"outputs": [],
 			"payable": false,
-			"stateMutability": "nonpayable",
-			"inputs": [
-				{"name": "getToken",   "type": "address"},
-				{"name": "getAmount",  "type": "uint256"},
-				{"name": "giveToken",  "type": "address"},
-				{"name": "giveAmount", "type": "uint256"},
-				{"name": "expires",    "type": "uint256"},
-				{"name": "nonce",      "type": "uint256"},
-				{"name": "V",          "type": "uint8"  },
-				{"name": "R",          "type": "bytes32"},
-				{"name": "S",          "type": "bytes32"},
-				{"name": "pair",       "type": "string" }
-			],
-			"outputs": []
-		},
-
-		//Library function name "changeSwapTokensState" | Web3.eth function name "changeTradeState"
-		{
 			"type": "function",
-			"name": "changeSwapTokensState",
+			"stateMutability": "nonpayable"
+		},
+		{
 			"constant": false,
-			"payable": false,
-			"stateMutability": "nonpayable",
 			"inputs": [
-				{"name": "state",     "type": "bool"    }
+				{
+					"name": "state_",
+					"type": "bool"
+				}
 			],
-			"outputs": []
-		},
-
-		//Library function name "swapTokens" | Web3.eth function name "trade"
-		{
+			"name": "changeTradeState",
+			"outputs": [],
+			"payable": false,
 			"type": "function",
-			"name": "swapTokens",
+			"stateMutability": "nonpayable"
+		},
+		{
 			"constant": false,
-			"payable": false,
-			"stateMutability": "nonpayable",
 			"inputs": [
-				{"name": "getToken",   "type": "address"},
-				{"name": "getAmount",  "type": "uint256"},
-				{"name": "giveToken",  "type": "address"},
-				{"name": "giveAmount", "type": "uint256"},
-				{"name": "expires",    "type": "uint256"},
-				{"name": "nonce",      "type": "uint256"},
-				{"name": "user",       "type": "address"},
-				{"name": "V",          "type": "uint8"  },
-				{"name": "R",          "type": "bytes32"},
-				{"name": "S",          "type": "bytes32"},
-				{"name": "amount",     "type": "uint256"},
-				{"name": "pair",       "type": "string" }
+				{
+					"name": "tokenGet",
+					"type": "address"
+				},
+				{
+					"name": "amountGet",
+					"type": "uint256"
+				},
+				{
+					"name": "tokenGive",
+					"type": "address"
+				},
+				{
+					"name": "amountGive",
+					"type": "uint256"
+				},
+				{
+					"name": "expires",
+					"type": "uint256"
+				},
+				{
+					"name": "nonce",
+					"type": "uint256"
+				},
+				{
+					"name": "user",
+					"type": "address"
+				},
+				{
+					"name": "v",
+					"type": "uint8"
+				},
+				{
+					"name": "r",
+					"type": "bytes32"
+				},
+				{
+					"name": "s",
+					"type": "bytes32"
+				},
+				{
+					"name": "amount",
+					"type": "uint256"
+				},
+				{
+					"name": "pair",
+					"type": "string"
+				}
 			],
-			"outputs": []
-		},
-
-		//Library function name "transferOwnership" | Web3.eth function name "transferOwnership"
-		{
+			"name": "trade",
+			"outputs": [],
+			"payable": false,
 			"type": "function",
+			"stateMutability": "nonpayable"
+		},
+		{
+			"constant": false,
+			"inputs": [
+				{
+					"name": "newAdmin",
+					"type": "address"
+				}
+			],
 			"name": "transferOwnership",
-			"constant": false,
+			"outputs": [],
 			"payable": false,
-			"stateMutability": "nonpayable",
-			"inputs": [
-				{"name": "newAdmin",   "type": "address"}
-			],
-			"outputs": []
-		},
-
-		//Library function name "getUserBalance" | Web3.eth function name "balanceOf"
-		{
 			"type": "function",
-			"name": "getUserBalance",
+			"stateMutability": "nonpayable"
+		},
+		{
 			"constant": true,
-			"payable": false,
-			"stateMutability": "view",
 			"inputs": [
-				{"name": "token",      "type": "address"},
-				{"name": "user",       "type": "address"}
+				{
+					"name": "token",
+					"type": "address"
+				},
+				{
+					"name": "user",
+					"type": "address"
+				}
 			],
+			"name": "balanceOf",
 			"outputs": [
-				{"name": "",           "type": "uint256"}
-			]
-		},
-
-		//Library function name "admin" | Web3.eth function name "admin"
-		{
-			"type": "function",
-			"name": "admin",
-			"constant": true,
+				{
+					"name": "",
+					"type": "uint256"
+				}
+			],
 			"payable": false,
-			"stateMutability": "view",
+			"type": "function",
+			"stateMutability": "view"
+		},
+		{
+			"constant": true,
 			"inputs": [],
+			"name": "admin",
 			"outputs": [
-				{"name": "",           "type": "address"}
-			]
-		},
-
-		//This is ABI "OrderEvent"
-		{
-			"type": "event",
-			"name": "OrderEvent",
-			"inputs": [
-				{"indexed": false, "name": "getToken",   "type": "address"},
-				{"indexed": false, "name": "getAmount",  "type": "uint256"},
-				{"indexed": false, "name": "giveToken",  "type": "address"},
-				{"indexed": false, "name": "giveAmount", "type": "uint256"},
-				{"indexed": false, "name": "expires",    "type": "uint256"},
-				{"indexed": false, "name": "nonce",      "type": "uint256"},
-				{"indexed": false, "name": "user",       "type": "address"},
-				{"indexed": false, "name": "hash",       "type": "bytes32"}
+				{
+					"name": "",
+					"type": "address"
+				}
 			],
-			"anonymous": false
+			"payable": false,
+			"type": "function",
+			"stateMutability": "view"
 		},
-
-		//This is ABI "CancelEvent"
 		{
-			"type": "event",
-			"name": "CancelEvent",
-			"inputs": [
-				{"indexed": false, "name": "getToken",   "type": "address"},
-				{"indexed": false, "name": "getAmount",  "type": "uint256"},
-				{"indexed": false, "name": "giveToken",  "type": "address"},
-				{"indexed": false, "name": "giveAmount", "type": "uint256"},
-				{"indexed": false, "name": "expires",    "type": "uint256"},
-				{"indexed": false, "name": "nonce",      "type": "uint256"},
-				{"indexed": false, "name": "user",       "type": "address"},
-				{"indexed": false, "name": "V",          "type": "uint8"  },
-				{"indexed": false, "name": "R",          "type": "bytes32"},
-				{"indexed": false, "name": "S",          "type": "bytes32"},
-				{"indexed": false, "name": "hash",       "type": "bytes32"},
-				{"indexed": false, "name": "pair",       "type": "string" }
-			],
-			"anonymous": false
+			"inputs": [],
+			"payable": false,
+			"type": "constructor",
+			"stateMutability": "nonpayable"
 		},
-
-		//This is ABI "SwapTokensEvent"
 		{
-			"type": "event",
-			"name": "SwapTokensEvent",
+			"anonymous": false,
 			"inputs": [
-				{"indexed": false, "name": "getToken",   "type": "address"},
-				{"indexed": false, "name": "getAmount",  "type": "uint256"},
-				{"indexed": false, "name": "giveToken",  "type": "address"},
-				{"indexed": false, "name": "giveAmount", "type": "uint256"},
-				{"indexed": false, "name": "getValue",   "type": "address"},
-				{"indexed": false, "name": "giveValue",  "type": "address"},
-				{"indexed": false, "name": "hash",       "type": "bytes32"},
-				{"indexed": false, "name": "pair",       "type": "string" }
+				{
+					"indexed": false,
+					"name": "tokenGet",
+					"type": "address"
+				},
+				{
+					"indexed": false,
+					"name": "amountGet",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"name": "tokenGive",
+					"type": "address"
+				},
+				{
+					"indexed": false,
+					"name": "amountGive",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"name": "expires",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"name": "nonce",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"name": "user",
+					"type": "address"
+				},
+				{
+					"indexed": false,
+					"name": "hash",
+					"type": "bytes32"
+				}
 			],
-			"anonymous": false
+			"name": "Order",
+			"type": "event"
 		},
-
-		//This is ABI "DepositEvent"
 		{
-			"type": "event",
-			"name": "DepositEvent",
+			"anonymous": false,
 			"inputs": [
-				{"indexed": false, "name": "token",      "type": "address"},
-				{"indexed": false, "name": "user",       "type": "address"},
-				{"indexed": false, "name": "amount",     "type": "uint256"},
-				{"indexed": false, "name": "balance",    "type": "uint256"}
+				{
+					"indexed": false,
+					"name": "tokenGet",
+					"type": "address"
+				},
+				{
+					"indexed": false,
+					"name": "amountGet",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"name": "tokenGive",
+					"type": "address"
+				},
+				{
+					"indexed": false,
+					"name": "amountGive",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"name": "expires",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"name": "nonce",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"name": "user",
+					"type": "address"
+				},
+				{
+					"indexed": false,
+					"name": "v",
+					"type": "uint8"
+				},
+				{
+					"indexed": false,
+					"name": "r",
+					"type": "bytes32"
+				},
+				{
+					"indexed": false,
+					"name": "s",
+					"type": "bytes32"
+				},
+				{
+					"indexed": false,
+					"name": "hash",
+					"type": "bytes32"
+				},
+				{
+					"indexed": false,
+					"name": "pair",
+					"type": "string"
+				}
 			],
-			"anonymous": false
+			"name": "Cancel",
+			"type": "event"
 		},
-
-		//This if ABI "WithdrawalEvent"
 		{
-			"type": "event",
-			"name": "WithdrawalEvent",
+			"anonymous": false,
 			"inputs": [
-				{"indexed": false, "name": "token",      "type": "address"},
-				{"indexed": false, "name": "user",       "type": "address"},
-				{"indexed": false, "name": "amount",     "type": "uint256"},
-				{"indexed": false, "name": "balance",    "type": "uint256"}
+				{
+					"indexed": false,
+					"name": "tokenGet",
+					"type": "address"
+				},
+				{
+					"indexed": false,
+					"name": "amountGet",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"name": "tokenGive",
+					"type": "address"
+				},
+				{
+					"indexed": false,
+					"name": "amountGive",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"name": "get",
+					"type": "address"
+				},
+				{
+					"indexed": false,
+					"name": "give",
+					"type": "address"
+				},
+				{
+					"indexed": false,
+					"name": "hash",
+					"type": "bytes32"
+				},
+				{
+					"indexed": false,
+					"name": "pair",
+					"type": "string"
+				}
 			],
-			"anonymous": false
+			"name": "Trade",
+			"type": "event"
+		},
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": false,
+					"name": "token",
+					"type": "address"
+				},
+				{
+					"indexed": false,
+					"name": "user",
+					"type": "address"
+				},
+				{
+					"indexed": false,
+					"name": "amount",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"name": "balance",
+					"type": "uint256"
+				}
+			],
+			"name": "Deposit",
+			"type": "event"
+		},
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": false,
+					"name": "token",
+					"type": "address"
+				},
+				{
+					"indexed": false,
+					"name": "user",
+					"type": "address"
+				},
+				{
+					"indexed": false,
+					"name": "amount",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"name": "balance",
+					"type": "uint256"
+				}
+			],
+			"name": "Withdraw",
+			"type": "event"
 		}
 	],
-
-
-
-
-	//This structure stores the binary interface of the token
-	"tokenABI": [
+	"tokenAbi":
+	[
 		{
 			"constant": true,
 			"inputs": [],
@@ -614,65 +869,85 @@
 			"type": "event"
 		}
 	],
-
-	//This structure stores the binary interface of the pair to exchange tokens
-	"pairsABI": [
+	"testAbi":
+	[
+		{
+			"constant": false,
+			"inputs": [
+				{
+					"name": "token",
+					"type": "address"
+				}
+			],
+			"name": "testEvent",
+			"outputs": [],
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": false,
+					"name": "token",
+					"type": "address"
+				}
+			],
+			"name": "TestEvent",
+			"type": "event"
+		}
+	],
+	"pairs": 
+		[
 			{
-				"name": "bnb/eth",
-				"path": "bnb_eth",
+				"name":"bnb/eth",
+				"path":"bnb_eth",
 				"symbols": ["bnb", "eth"],
 				"fullName": ["binance-coin", "Ethereum"],
 				"tokens": ["0x01e48b0714b958b29e2899c46510fd76189f5768", "0x0000000000000000000000000000000000000000"]
-			},
-			{
-				"name": "omg/eth",
-				"path": "omg_eth",
+			},{
+				"name":"omg/eth",
+				"path":"omg_eth",
 				"symbols": ["omg", "eth"],
 				"fullName": ["omiseGo", "Ethereum"],
 				"tokens": ["0xbc5884b939d1d8920b0dd319009afc261a2a29a6", "0x0000000000000000000000000000000000000000"]
-			},
-			{
-				"name": "zrx/eth",
-				"path": "zrx_eth",
+			},{
+				"name":"zrx/eth",
+				"path":"zrx_eth",
 				"symbols": ["zrx", "eth"],
 				"fullName": ["0x", "Ethereum"],
 				"tokens": ["0xe425e15800e5e594a7bc2289a5f84379f1d329f9", "0x0000000000000000000000000000000000000000"]
-			},
-			{
-				"name": "mkr/eth",
-				"path": "mkr_eth",
+			},{
+				"name":"mkr/eth",
+				"path":"mkr_eth",
 				"symbols": ["mkr", "eth"],
 				"fullName": ["Maker", "Ethereum"],
 				"tokens": ["0xf7228608a292c34b48286035c57306fdc28796e5", "0x0000000000000000000000000000000000000000"]
-			},
-			{
-				"name": "omg/bnb",
-				"path": "omg_bnb",
+			},{
+				"name":"omg/bnb",
+				"path":"omg_bnb",
 				"symbols": ["omg", "bnb"],
 				"fullName": ["omiseGo", "binance-coin"],
 				"tokens": ["0xbc5884b939d1d8920b0dd319009afc261a2a29a6", "0x01e48b0714b958b29e2899c46510fd76189f5768"]
-			},
-			{
-				"name": "omg/zrx",
-				"path": "omg_zrx",
+			},{
+				"name":"omg/zrx",
+				"path":"omg_zrx",
 				"symbols": ["omg", "zrx"],
 				"fullName": ["omiseGo", "0x"],
 				"tokens": ["0xbc5884b939d1d8920b0dd319009afc261a2a29a6", "0xe425e15800e5e594a7bc2289a5f84379f1d329f9"]
-			},
-			{
-				"name": "omg/mkr",
-				"path": "omg_mkr",
+			},{
+				"name":"omg/mkr",
+				"path":"omg_mkr",
 				"symbols": ["omg", "mkr"],
 				"fullName": ["omiseGo", "Maker"],
 				"tokens": ["0xbc5884b939d1d8920b0dd319009afc261a2a29a6", "0xf7228608a292c34b48286035c57306fdc28796e5"]
-			},
-			{
-				"name": "mkr/zrx",
-				"path": "mkr_zrx",
+			},{
+				"name":"mkr/zrx",
+				"path":"mkr_zrx",
 				"symbols": ["mkr", "zrx"],
 				"fullName": ["Maker", "0x"],
 				"tokens": ["0xf7228608a292c34b48286035c57306fdc28796e5", "0xe425e15800e5e594a7bc2289a5f84379f1d329f9"]
 			}
 		]
-
 }
