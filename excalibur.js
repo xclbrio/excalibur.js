@@ -243,7 +243,8 @@ class Excalibur {
 		} else if (transformType === 'from') {
 			return this.web3.utils.fromWei(numberValue, unit);
 		} else {
-			return "Transfrom type is not define.";
+			console.log(`Transfrom type ${transformType} is not define.`);
+			return numberValue;
 		}
 	}
 
