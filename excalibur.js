@@ -3,112 +3,174 @@
 	|			   Decentralized Exchange	 			|
 	-----------------------------------------------------
 	|		  Exchange smart contract methods			|
-	|				    Version 0.0.5			  		|
-	|		 		  Module Description				|
+	|		 		 Module Description					|
 	|													|
 	|		 There will be a description of the 		|
-	|	arguments of the methods for the class to work	|	
+	|   arguments of the methods for the class to work	|	
 	-----------------------------------------------------
  */
 
 
-//This’s main class of anything related Ethereum
+// Класс "Excalibur" для работы со смарт-контрактами.
 
-// Importing and binding a class "Web3" to a constant
-const Web3 = require("web3");
-// Importing and binding a class to a constant
-const Settings = require("./settings.json");
-
-
-// Class "Exchange", which includes methods for working with it
-class Exchange {
-
-	// Exchange class constructor
-	constructor(inProviderID, inExchangeAddress) {
-		
-		// The "inProviderID" parameter has only two states, true or false. This parameter decides which ID provider will be used.
-		if (inProviderID === true) {
-			// Announcement of the variable "providerID"
-			this.providerID = Settings.firstProviderID;
-		} else {
-			// Announcement of the variable "providerID"
-			this.providerID = Settings.secondProviderID;
-		}
-
-		// The "inExchangeAddress" parameter has only two states, true or false. This parameter decides which address will be used.
-		if (inExchangeAddress === true) {
-			// Announcement of the variable "exchangeAddress"
-			this.exchangeAddress = Settings.firstExchangeAddress;
-		} else {
-			// Announcement of the variable "exchangeAddress"
-			this.exchangeAddress = Settings.secondExchangeAddress;
-		}
+// Импорт билиотеки "Web3" и ее связывание с константой для работы с ней.
+const Web3 = require('web3');
+// Импортирование конфигурационного файла и его связывание с константой для работы с ним.
+const Settings = require("./config/settings.json");
 
 
-		// For debugging
-		console.log(this.providerID);
-		console.log(this.exchangeAddress);
+// Класс "Excalibur", который включает методы для работы с ним.
+class Excalibur {
 
-
-		// Creating "web3" constant from class "Web3" with your provider ID value
-		this.web3 = new Web3(new Web3.providers.HttpProvider(this.providerID));
-
-		// Importing an exchnageABI structure from "settings.json"
-		this.exchangeABI = Settings.exchangeAbi;
-
-		// Importing an tokenABI structure from "settings.json"
-		this.tokenABI = Settings.tokenAbi;
-
-		// Importing an pairsABI structure from "settings.json"
-		this.pairsABI = Settings.pairs;
-
-		// This object-variable stores the Smart Contract created by "web3.js" (Exchange Contract) 
-		this.exchangeContract = new this.web3.eth.Contract(this.exchangeABI, this.exchangeAddress);
-
-		// This object-variable stores the Smart Contract created by "web3.js" (Token Contract) 
-		this.tokenContract = new this.web3.eth.Contract(this.tokenABI, this.exchangeAddress);
-
-		// Importing a variable holding the library version from "settings.json"
+	// Конструктор класса
+	constructor(inProviderID, inContractAddress) {
+		// Создание переменной и присваивание ей идентификатор провайдера. Формальный параметр должен получать на вход фактический параметр в виде строки.
+		this.providerID = inProviderID;
+		// Формальный параметр "inExchangeAddress" должен иметь одно из двух состояний: 'true' или 'false'. Позволяет выбрать адрес биржи к которому необходимо подсоединиться.
+		// Импортирование адреса контракта из файла "settings.json".
+		this.contractAddress = ((inContractAddress === true) ? Settings.firstContractAddress : Settings.secondContractAddress);
+		// Создание объекта "web3" от библиотеки "Web3".
+		this.web3 = new Web3(new Web3.providers.WebsocketProvider(this.providerID));
+		// Импортирование ABI биржи из файла "settings.json".
+		this.exchangeABI = Settings.exchangeABI;
+		// Импортирование ABI токена из файла "settings.json".
+		this.tokenABI = Settings.tokenABI;
+		// Создание переменной, которая будет осуществлять работу с контрактами для биржи (Exchange Contract).
+		this.exchangeContract = new this.web3.eth.Contract(this.exchangeABI, this.contractAddress);
+		// Создание переменной, которая будет осуществлять работу с контрактами для токена (Token Contract).
+		this.tokenContract = new this.web3.eth.Contract(this.tokenABI, this.contractAddress);
+		// Импортирование версии библиотеки из файла "settings.json".
 		this.libraryVersion = Settings.libraryVersion;
-		
 	}
 
 
-	// Get account details (not working (optional async/await))
+	// Получение аккаунта по его индексу
 	async getAccount(accountIndex) {
-		let account = [];
-		await web3_.eth.getAccounts();
-		return account[accountIndex_];
+		let arrayAccounts;
+		await web3.eth.getAccounts(function(error, array) {
+			if (!error)
+				arrayAccounts = array;
+		});
+		return await arrayAccounts[accountIndex];
 	}
 
 
-	// Make a deposit
-	async makeDeposit(fromWhere_, amount_, CALLBACK) {
+	// Внести некоторую сумму
+	async makeDeposit(fromWhere, depositAmount, callback) {
+		let depositValue;
+		await this.exchangeContract.methods.deposit().send({from: fromWhere, value: depositAmount}, function(error, hash) {
+			if (!error)
+				depositValue = hash;
+			callback(hash);
+		});
+		return await depositValue;
+	}
+
+
+	// Вывестти средства
+	async withdrawalFunds(fromWhere, amountValue, callback) {
+		let withdrawalValue;
+		await this.exchangeContract.methods.withdraw(amountValue).send({from: fromWhere}, function(error, hash) {
+			if (!error)
+				withdrawalValue = hash;
+			callback(hash);
+		});
+		return await withdrawalValue;
+	}
+
+
+	// Внести некоторое количество токенов
+	async makeDepositToken() {
+
+	}
+
+
+	// Вывести токены
+	async withdrawalTokens(fromWhere, token, amountValue, callback) {
+		let withdrawalValue;
+		await this.exchangeContract.methods.withdrawToken(token, amount).send({from: fromWhere}, function(error, hash) {
+			if (!error)
+				withdrawalValue = hash;
+			callback(hash);
+		});
+		return await withdrawalValue;
+	}
+
+
+	// Запросить баланс
+	async getBalance(token, walletAddress) {
+		let balanceValue;
+		await this.exchangeContract.methods.balanceOf(token, walletAddress).call(function(error, cash) {
+			if (!error)
+				balanceValue = cash;
+		});
+		return await balanceValue;
+	}
+
+
+	// Ордер на покупку/продажу криптовалюты
+	async getOrder(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce) {
 		let temporaryValue;
-		await this.exchangeContract.methods.deposit().send({from: fromWhere, value: amount},
-			function(error, hash) {
-				if (!error) {
-					temporaryValue = hash;
-					CALLBACK(hash);
-				}
-			});
+		await this.exchangeContract.methods.order(getToken, getAmount, giveToken, giveAmount, expires, nonce).send({from: fromWhere}, function(error, hash) {
+			if (!error)
+				temporaryValue = hash;
+		});
 		return await temporaryValue;
 	}
 
 
-	// Request a wallet balance
-	async getUserBalance(token_, user_) {
+	// Обменять токены
+	async swapTokens(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce, walletAddress, v, r, s, amountValue, pairTokens, callback) {
 		let temporaryValue;
-		await this.exchangeContract.methods().balanceOf(token_, user_).call(
-			function(error, result) {
-				if (!error) {
-					temporaryValue = result;
-				}
-			});
+		await this.exchangeContract.methods.trade(getToken, getAmount, giveToken, giveAmount, expires, nonce, walletAddress, v, r, s, amountValue, pairTokens).send({from: fromWhere}, function(error, hash) {
+			if (!error)
+				temporaryValue = hash;
+			callback(hash);
+		});
 		return await temporaryValue;
 	}
 
 
+	// Отменить ордер на покупку/продажу криптовалюты
+	async cancelOrder(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce, v, r, s, amountValue, pairTokens, callback) {
+		let temporaryValue;
+		await this.exchangeContract.methods.cancelOrder(getToken, getAmount, giveToken, giveAmount, expires, nonce, v, r, s, amountValue, pairTokens).send({from: fromWhere}, function(error, hash) {
+			if (!error)
+				temporaryValue = hash;
+			callback(hash);
+		});
+		return await temporaryValue;
+	}
+
+
+	// Персональная подпись
+	async personalSign(fromWhere, hash) {
+		let signResult;
+		await this.web3.eth.personal.sign(hash, fromWhere, function(error, result) {
+			if (!error)
+				signResult = result;
+		});
+		return await signResult;
+	}
+
+
+	// Проверить подпись
+	async checkSign(hash, signature) {
+		let checkResult;
+		await this.web3.personal.ecRecover(hash, signature, function(error, result) {
+			if (!error)
+				checkResult = result;
+		});
+		return await checkResult;
+	}
+
+
+	// Получить подпись (какой контракт сюда передается)
+	getSign(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce, callback) {
+		let hash = this.orderHash(this.web3, this.exchangeContract, getToken, getAmount, giveToken, giveAmount, expires, nonce);
+		callback(hash);
+		return this.sign(this.web3, fromWhere, hash);
+	}
 
 
 	// Information about the use of the library and it's variables and function's arguments
@@ -120,16 +182,15 @@ class Exchange {
 	}
 
 
-
-	// About versions of this library and Web3 library
-	aboutLibraryAndUseExtensionVersion() {
-		console.log(`'excalibur.js' version: ${this.libraryVersion}`);
-		console.log(`'web3.js' version: ${this.web3.version}`);
+	// Информация о версии библиотеки и о версиях используемых дополнениях к ней
+	aboutVersions() {
+		console.log(`Excalibur library:  ver. ${this.libraryVersion}`);
+		console.log(`Web3 library:  ver. ${this.web3.version}`);
 	}
 }
 
-// Importing module for other projects
-module.exports = Exchange;
+// Импортирование библиотеки для использования в других проектах
+module.exports = Excalibur;
 
 
 
