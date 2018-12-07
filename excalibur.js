@@ -248,56 +248,6 @@ class Excalibur {
 		}
 	}
 
-	// Information about the use of the library and it's variables and function's arguments
-	help(key = '-all') {
-		if (key === '-all') {
-			console.log(`Вызвав этот метод Вы можете получить всю необходимую информацию для работы с библиотекой`);
-			console.log(`Вызвав метод без параметров, Вам выведется полный список ключей и сопоставленных им методов.`);
-			console.log(`Для получения информации вызовите метод с ключом соответствующей функции, информацию по которой Вы хотите получить.`);
-			console.log(`'-ga'  - Позволяет получить информацию о методе "getAccount".`);
-			console.log(`'-md'  - Позволяет получить информацию о методе "makeDeposit".`);
-			console.log(`'-wf'  - Позволяет получить информацию о методе "withdrawFunds".`);
-			console.log(`'-dt'  - Позволяет получить информацию о методе "makeDepositToken".`);
-			console.log(`'-wt'  - Позволяет получить информацию о методе "withdrawTokens".`);
-			console.log(`'-gb'  - Позволяет получить информацию о методе "getBalance".`);
-			console.log(`'-go'  - Позволяет получить информацию о методе "getOrder".`);
-			console.log(`'-st'  - Позволяет получить информацию о методе "swapTokens".`);
-			console.log(`'-co'  - Позволяет получить информацию о методе "cancelOrder".`);
-			console.log(`'-ps'  - Позволяет получить информацию о методе "personalSign".`);
-			console.log(`'-cs'  - Позволяет получить информацию о методе "checkSign".`);
-			console.log(`'-oh'  - Позволяет получить информацию о методе "getOrderHash".`);
-			console.log(`'-gs'  - Позволяет получить информацию о методе "getSign".`);
-			console.log(`'-fa'  - Позволяет получить информацию о методе "getFundsApprove".`);
-			console.log(`'-mt'  - Позволяет получить информацию о методе "makeTransfer".`);
-			console.log(`'-oe'  - Позволяет получить информацию о методе "orderEvent"`);
-			console.log(`'-rsv' - Позволяет получить информацию о методе "transformToRSV"`);
-			console.log(`'-tw'  - Позволяет получить информацию о методе "tranformWei"`);
-		}
-		if (key === '-mt') {
-
-		}
-		if (key === '-ga') {
-			console.log(`Этот метод позволяет получить аккаунт по его индексу.`);
-			console.log(`Parameter:`);
-			console.log(`accountIndex - индекс аккаунта.`);
-		}
-		if (key === '-oe') {
-			console.log(`Этот метод создает событие ордера.`);
-			console
-			fromWhere, startPoint, endPoint, amountValue
-		}
-		if (key === '-rsv') {
-
-		}
-		if (key === '-tw') {
-			console.log(`Этот метод позволяет перевести Вашу валюту во внутреннюю.`);
-			console.log(`Parameters:`);
-			console.log(`numberValue - переводимое значение.`);
-			console.log(`transformType - позволяет указать тип перевода. Имеет два значения - "to" или "from", по умолчанию установлено значение "to"`);
-			console.log(`unit - позволяет указать во что или из чего переводить.  `);
-		}
-	}
-
 	// Information about the version of the library and the versions of the used additions to it
 	versions() {
 		console.log(`Excalibur library:  ver. ${this.libraryVersion}`);
