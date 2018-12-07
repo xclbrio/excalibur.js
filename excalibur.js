@@ -20,15 +20,15 @@ const Settings = require("./config/settings.json");
 // The "Excalibur" class which includes methods for working with it
 class Excalibur {
 
-	// Class constructor
-	constructor(inProviderID, isMainnetAddress) {
+	// Class constructor 
+	constructor(inProviderID, isMainnetAddress, isHTTPprovider = 'http') {
 		// Creating a variable and assigning it the provider ID. The formal parameter should receive as input the actual parameter as a string
 		this.providerID = inProviderID;
 		// The formal parameter "isMainnetAddress" must have one of two states: 'true' or 'false'. Allows you to select the address of the exchange to which you want to connect
 		// Importing the contract address from the "settings.json" file
 		this.contractAddress = (isMainnetAddress === true) ? Settings.mainnetAddress : Settings.kovanAddress;
 		// Creating an object "web3" from the library "Web3"
-		this.web3 = new Web3(new Web3.providers.WebsocketProvider(this.providerID));
+		this.web3 = new Web3(new Web3.providers.HttpProvider(this.providerID));
 		// Import ABI exchange from the file "settings.json"
 		this.exchangeABI = Settings.exchangeABI;
 		// Importing an ABI token from the file "settings.json"
@@ -42,14 +42,12 @@ class Excalibur {
 	}
 
 	// Getting an account by it's index
-	async getAccount(accountIndex) {
-		let arrayAccounts;
+	async getAccount(accountIndex, callback) {
 		await this.web3.eth.getAccounts(function(error, array) {
 			if (!error) {
-				arrayAccounts = array;
+				callback(array[accountIndex]);
 			}
 		});
-		return await arrayAccounts[accountIndex];
 	}
 
 	// Deposit some amount
@@ -237,6 +235,8 @@ class Excalibur {
 	}
 
 	// Transfrom Wei
+
+	//рассмотреть случай экэсопненты
 	transformWei(numberValue, transformType = 'to', unit = 'ether') {
 		if (transformType === 'to') {
 			return this.web3.utils.toWei(numberValue, unit);
