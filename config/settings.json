@@ -1,7 +1,7 @@
 {
-	"firstContractAddress":  "0x27f5D11e2523B069b1e84F01C0b3B3B193522489",	
+	"kovanAddress":  "0x27f5D11e2523B069b1e84F01C0b3B3B193522489",	
 
-	"secondContractAddress": "0x9419fbecfa0a9e38a96be2d818daa13dca72396e",
+	"mainnatAddress": "0x9419fbecfa0a9e38a96be2d818daa13dca72396e",
 
 	"libraryVersion": "1.0.0",
 

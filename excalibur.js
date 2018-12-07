@@ -11,37 +11,37 @@
  */
 
 
-// Импорт билиотеки "Web3" и ее связывание с константой для работы с ней.
+// Import the "Web3" library and it's binding to a constant for working with it
 const Web3 = require('web3');
-// Импортирование конфигурационного файла и его связывание с константой для работы с ним.
+// Import a configuration file and it's binding to a constant for working with it
 const Settings = require("./config/settings.json");
 
 
-// Класс "Excalibur", который включает методы для работы с ним.
+// The "Excalibur" class which includes methods for working with it
 class Excalibur {
 
-	// Конструктор класса
-	constructor(inProviderID, inContractAddress) {
-		// Создание переменной и присваивание ей идентификатор провайдера. Формальный параметр должен получать на вход фактический параметр в виде строки.
+	// Class constructor
+	constructor(inProviderID, isMainnetAddress) {
+		// Creating a variable and assigning it the provider ID. The formal parameter should receive as input the actual parameter as a string
 		this.providerID = inProviderID;
-		// Формальный параметр "inContractAddress" должен иметь одно из двух состояний: 'true' или 'false'. Позволяет выбрать адрес биржи к которому необходимо подсоединиться.
-		// Импортирование адреса контракта из файла "settings.json".
-		this.contractAddress = ((inContractAddress === true) ? Settings.firstContractAddress : Settings.secondContractAddress);
-		// Создание объекта "web3" от библиотеки "Web3".
+		// The formal parameter "isMainnetAddress" must have one of two states: 'true' or 'false'. Allows you to select the address of the exchange to which you want to connect
+		// Importing the contract address from the "settings.json" file
+		this.contractAddress = (isMainnetAddress === true) ? Settings.mainnetAddress : Settings.kovanAddress;
+		// Creating an object "web3" from the library "Web3"
 		this.web3 = new Web3(new Web3.providers.WebsocketProvider(this.providerID));
-		// Импортирование ABI биржи из файла "settings.json".
+		// Import ABI exchange from the file "settings.json"
 		this.exchangeABI = Settings.exchangeABI;
-		// Импортирование ABI токена из файла "settings.json".
+		// Importing an ABI token from the file "settings.json"
 		this.tokenABI = Settings.tokenABI;
-		// Создание переменной, которая будет осуществлять работу с контрактами для биржи (Exchange Contract).
+		// Creating a variable that will work with contracts for the exchange (Exchange Contract)
 		this.exchangeContract = new this.web3.eth.Contract(this.exchangeABI, this.contractAddress);
-		// Создание переменной, которая будет осуществлять работу с контрактами для токена (Token Contract).
+		// Creating a variable that will work with contracts for a token (Token Contract)
 		this.tokenContract = new this.web3.eth.Contract(this.tokenABI, this.contractAddress);
-		// Импортирование версии библиотеки из файла "settings.json".
+		// Importing the library version from the file "settings.json"
 		this.libraryVersion = Settings.libraryVersion;
 	}
 
-	// Получение аккаунта по его индексу
+	// Getting an account by it's index
 	async getAccount(accountIndex) {
 		let arrayAccounts;
 		await this.web3.eth.getAccounts(function(error, array) {
@@ -52,7 +52,7 @@ class Excalibur {
 		return await arrayAccounts[accountIndex];
 	}
 
-	// Внести некоторую сумму
+	// Deposit some amount
 	async makeDeposit(fromWhere, depositAmount, callback) {
 		let depositValue;
 		await this.exchangeContract.methods.deposit().send({from: fromWhere, value: depositAmount}, function(error, hash) {
@@ -64,8 +64,8 @@ class Excalibur {
 		return await depositValue;
 	}
 
-	// Вывести средства
-	async withdrawalFunds(fromWhere, amountValue, callback) {
+	// Withdraw funds
+	async withdrawFunds(fromWhere, amountValue, callback) {
 		let withdrawalValue;
 		await this.exchangeContract.methods.withdraw(amountValue).send({from: fromWhere}, function(error, hash) {
 			if (!error) {
@@ -76,7 +76,7 @@ class Excalibur {
 		return await withdrawalValue;
 	}
 
-	// Внести некоторое количество токенов
+	// Add some tokens
 	async makeDepositToken(fromWhere, spender, token, amountValue, callback) {
 		let depositValue;
 		await this.tokenContract.methods.approve(spender, amountValue).send({from: fromWhere}, function(firstError, hash) {
@@ -101,8 +101,8 @@ class Excalibur {
 		return await depositValue;
 	}
 
-	// Вывести токены
-	async withdrawalTokens(fromWhere, token, amountValue, callback) {
+	// Withdraw tokens
+	async withdrawTokens(fromWhere, token, amountValue, callback) {
 		let withdrawalValue;
 		await this.exchangeContract.methods.withdrawToken(token, amountValue).send({from: fromWhere}, function(error, hash) {
 			if (!error) {
@@ -113,7 +113,7 @@ class Excalibur {
 		return await withdrawalValue;
 	}
 
-	// Запросить баланс
+	// Request a balance in the user account
 	async getBalance(token, walletAddress) {
 		let balanceValue;
 		await this.exchangeContract.methods.balanceOf(token, walletAddress).call(function(error, cash) {
@@ -124,7 +124,7 @@ class Excalibur {
 		return await balanceValue;
 	}
 
-	// Ордер на покупку/продажу криптовалюты
+	// Get a cryptocurrency buy or sell order
 	async getOrder(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce) {
 		let temporaryValue;
 		await this.exchangeContract.methods.order(getToken, getAmount, giveToken, giveAmount, expires, nonce).send({from: fromWhere}, function(error, hash) {
@@ -135,7 +135,7 @@ class Excalibur {
 		return await temporaryValue;
 	}
 
-	// Обменять токены
+	// To exchange tokens
 	async swapTokens(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce, walletAddress, v, r, s, amountValue, tokenPair, callback) {
 		let temporaryValue;
 		await this.exchangeContract.methods.trade(getToken, getAmount, giveToken, giveAmount, expires, nonce, walletAddress, v, r, s, amountValue, tokenPair).send({from: fromWhere}, function(error, hash) {
@@ -147,7 +147,7 @@ class Excalibur {
 		return await temporaryValue;
 	}
 
-	// Отменить ордер на покупку/продажу криптовалюты
+	// Cancel cryptocurrency buy or sell order
 	async cancelOrder(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce, v, r, s, pairTokens, callback) {
 		let temporaryValue;
 		await this.exchangeContract.methods.cancelOrder(getToken, getAmount, giveToken, giveAmount, expires, nonce, v, r, s, pairTokens).send({from: fromWhere}, function(error, hash) {
@@ -159,7 +159,7 @@ class Excalibur {
 		return await temporaryValue;
 	}
 
-	// Персональная подпись
+	// Personal signature
 	async personalSign(fromWhere, hash) {
 		let signResult;
 		await this.web3.eth.personal.sign(hash, fromWhere, function(error, result) {
@@ -170,7 +170,7 @@ class Excalibur {
 		return await signResult;
 	}
 
-	// Проверить подпись
+	// Perform signature verification
 	async checkSign(hash, signature) {
 		let checkingResult;
 		await this.web3.eth.personal.ecRecover(hash, signature, function(error, result) {
@@ -181,20 +181,20 @@ class Excalibur {
 		return await checkingResult;
 	}
 
-	// Получить хэш ордера
+	// Get a hash order
 	getOrderHash(getToken, getAmount, giveToken, giveAmount, expires, nonce) {
 		let temporaryValue = this.web3.utils.soliditySha3(this.exchangeContract, getToken, getAmount, giveToken, giveAmount, expires, nonce);
 		return temporaryValue;
 	}
 
-	// Получить подпись
+	// Get a signature
 	getSign(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce, callback) {
 		let hash = this.getOrderHash(getToken, getAmount, giveToken, giveAmount, expires, nonce);
 		callback(hash);
 		return this.personalSign(fromWhere, hash);
 	}
 
-	// Получить разрешение на использование средств
+	// Get approve to use the funds
 	async getFundsApprove(fromWhere, spender, amountValue) {
 		let temporaryValue;
 		await this.exchangeContract.methods.approve(spender, amountValue).send({from: fromWhere}, function(error, hash) {
@@ -205,7 +205,7 @@ class Excalibur {
 		return await temporaryValue;
 	}
 
-	// Сделать трансфер некоторой суммы
+	// Make a transfer of a some amount
 	async makeTransfer(fromWhere, startPoint, endPoint, amountValue) {
 		let transferValue;
 		await this.exchangeContract.methods.transferFrom(startPoint, endPoint, amountValue).send({from: fromWhere}, function(error, hash) {
@@ -216,7 +216,7 @@ class Excalibur {
 		return await transferValue;
 	}
 
-	// Событие создания ордера
+	// Event creation order
 	async orderEvent() {
 		let temporaryValue;
 		await this.exchangeContract.events.Order({fromBlock: 0}, function(error, event) {
@@ -227,7 +227,7 @@ class Excalibur {
 		return await temporaryValue;
 	}
 
-	// Перевод в читаемый вид эфириума
+	// Translation into readable form of the Ethereum
 	transformToRSV(signature) {
 		let temporaryValue = signature.slice(2);
 		let r = '0x' + temporaryValue.slice(0, 64);
@@ -237,7 +237,7 @@ class Excalibur {
 	}
 
 	// Transfrom Wei
-	transformWei(numberValue, unit = 'ether', transformType = 'to') {
+	transformWei(numberValue, transformType = 'to', unit = 'ether') {
 		if (transformType === 'to') {
 			return this.web3.utils.toWei(numberValue, unit);
 		} else if (transformType === 'from') {
@@ -251,18 +251,60 @@ class Excalibur {
 	// Information about the use of the library and it's variables and function's arguments
 	help(key = '-all') {
 		if (key === '-all') {
-			// this is place for all description about library methods
+			console.log(`Вызвав этот метод Вы можете получить всю необходимую информацию для работы с библиотекой`);
+			console.log(`Вызвав метод без параметров, Вам выведется полный список ключей и сопоставленных им методов.`);
+			console.log(`Для получения информации вызовите метод с ключом соответствующей функции, информацию по которой Вы хотите получить.`);
+			console.log(`'-ga'  - Позволяет получить информацию о методе "getAccount".`);
+			console.log(`'-md'  - Позволяет получить информацию о методе "makeDeposit".`);
+			console.log(`'-wf'  - Позволяет получить информацию о методе "withdrawFunds".`);
+			console.log(`'-dt'  - Позволяет получить информацию о методе "makeDepositToken".`);
+			console.log(`'-wt'  - Позволяет получить информацию о методе "withdrawTokens".`);
+			console.log(`'-gb'  - Позволяет получить информацию о методе "getBalance".`);
+			console.log(`'-go'  - Позволяет получить информацию о методе "getOrder".`);
+			console.log(`'-st'  - Позволяет получить информацию о методе "swapTokens".`);
+			console.log(`'-co'  - Позволяет получить информацию о методе "cancelOrder".`);
+			console.log(`'-ps'  - Позволяет получить информацию о методе "personalSign".`);
+			console.log(`'-cs'  - Позволяет получить информацию о методе "checkSign".`);
+			console.log(`'-oh'  - Позволяет получить информацию о методе "getOrderHash".`);
+			console.log(`'-gs'  - Позволяет получить информацию о методе "getSign".`);
+			console.log(`'-fa'  - Позволяет получить информацию о методе "getFundsApprove".`);
+			console.log(`'-mt'  - Позволяет получить информацию о методе "makeTransfer".`);
+			console.log(`'-oe'  - Позволяет получить информацию о методе "orderEvent"`);
+			console.log(`'-rsv' - Позволяет получить информацию о методе "transformToRSV"`);
+			console.log(`'-tw'  - Позволяет получить информацию о методе "tranformWei"`);
 		}
-		// in the future here will be added descriptions
+		if (key === '-mt') {
+
+		}
+		if (key === '-ga') {
+			console.log(`Этот метод позволяет получить аккаунт по его индексу.`);
+			console.log(`Parameter:`);
+			console.log(`accountIndex - индекс аккаунта.`);
+		}
+		if (key === '-oe') {
+			console.log(`Этот метод создает событие ордера.`);
+			console
+			fromWhere, startPoint, endPoint, amountValue
+		}
+		if (key === '-rsv') {
+
+		}
+		if (key === '-tw') {
+			console.log(`Этот метод позволяет перевести Вашу валюту во внутреннюю.`);
+			console.log(`Parameters:`);
+			console.log(`numberValue - переводимое значение.`);
+			console.log(`transformType - позволяет указать тип перевода. Имеет два значения - "to" или "from", по умолчанию установлено значение "to"`);
+			console.log(`unit - позволяет указать во что или из чего переводить.  `);
+		}
 	}
 
-	// Информация о версии библиотеки и о версиях используемых дополнениях к ней
+	// Information about the version of the library and the versions of the used additions to it
 	versions() {
 		console.log(`Excalibur library:  ver. ${this.libraryVersion}`);
 		console.log(`Web3 library:  ver. ${this.web3.version}`);
 	}
-
+	
 }
 
-// Импортирование библиотеки для использования в других проектах
+// Importing a library for use in other projects
 module.exports = Excalibur;
