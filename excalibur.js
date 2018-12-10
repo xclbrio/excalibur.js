@@ -21,14 +21,13 @@ const Settings = require("./config/settings.json");
 class Excalibur {
 
 	// Class constructor 
-	constructor(inProviderID, isMainnetAddress, isHTTPprovider = 'http') {
+	constructor(inProviderID, isMainnetAddress = true, isWebsocketProvider = true) {
 		// Creating a variable and assigning it the provider ID. The formal parameter should receive as input the actual parameter as a string
 		this.providerID = inProviderID;
-		// The formal parameter "isMainnetAddress" must have one of two states: 'true' or 'false'. Allows you to select the address of the exchange to which you want to connect
 		// Importing the contract address from the "settings.json" file
 		this.contractAddress = (isMainnetAddress === true) ? Settings.mainnetAddress : Settings.kovanAddress;
 		// Creating an object "web3" from the library "Web3"
-		this.web3 = new Web3(new Web3.providers.HttpProvider(this.providerID));
+		this.web3 = (isWebsocketProvider === true) ? new Web3(new Web3.providers.WebsocketProvider(this.providerID)) : new Web3(new Web3.providers.HttpProvider(this.providerID));
 		// Import ABI exchange from the file "settings.json"
 		this.exchangeABI = Settings.exchangeABI;
 		// Importing an ABI token from the file "settings.json"
@@ -46,143 +45,143 @@ class Excalibur {
 		await this.web3.eth.getAccounts(function(error, array) {
 			if (!error) {
 				callback(array[accountIndex]);
+			} else {
+				callback(error);
 			}
 		});
 	}
 
 	// Deposit some amount
 	async makeDeposit(fromWhere, depositAmount, callback) {
-		let depositValue;
 		await this.exchangeContract.methods.deposit().send({from: fromWhere, value: depositAmount}, function(error, hash) {
 			if (!error) {
-				depositValue = hash;
+				callback(hash);
+			} else {
+				callback(error);
 			}
-			callback(hash);
 		});
-		return await depositValue;
 	}
 
 	// Withdraw funds
 	async withdrawFunds(fromWhere, amountValue, callback) {
-		let withdrawalValue;
 		await this.exchangeContract.methods.withdraw(amountValue).send({from: fromWhere}, function(error, hash) {
 			if (!error) {
-				withdrawalValue = hash;
+				callback(hash);
+			} else {
+				callback(error);
 			}
-			callback(hash);
 		});
-		return await withdrawalValue;
 	}
 
 	// Add some tokens
 	async makeDepositToken(fromWhere, spender, token, amountValue, callback) {
-		let depositValue;
-		await this.tokenContract.methods.approve(spender, amountValue).send({from: fromWhere}, function(firstError, hash) {
-			if (!firstError) {
-				depositValue = hash;
+		let tokenObject = new Object;
+		await this.tokenContract.methods.approve(spender, amountValue).send({from: fromWhere}, function(error, hash) {
+			if (!error) {
+				callback(hash);
+				tokenObject.approveHash = hash;
+			} else {
+				callback(error);
 			}
-			callback(hash);
-			let checkTransaction = setInterval(() => {
-				this.web3.eth.getTransactionReceipt(hash).then(result => {
-					if (result.blockNumber !== null) {
-						clearInterval(checkTransaction);
-						this.exchangeContract.methods.depositToken(token, amountValue).send({from: fromWhere}, function(secondError, hash) {
-							if (!secondError) {
-								depositValue = hash;
-							}
-							callback(hash);
-						});
-					}
-				});
-			}, 3000);
-		});
-		return await depositValue;
+		}).then(await this.exchangeContract.methods.withdrawToken(token, amountValue).send({from: fromWhere}, function(error, hash) {
+			if (!error) {
+				callback(hash);
+				tokenObject.depositHash = hash;
+			} else {
+				callback(error);
+			}
+		}));
+		return await tokenObject;
 	}
 
 	// Withdraw tokens
 	async withdrawTokens(fromWhere, token, amountValue, callback) {
-		let withdrawalValue;
 		await this.exchangeContract.methods.withdrawToken(token, amountValue).send({from: fromWhere}, function(error, hash) {
 			if (!error) {
-				withdrawalValue = hash;
+				callback(hash);
+			} else {
+				callback(error);
 			}
-			callback(hash);
 		});
-		return await withdrawalValue;
 	}
 
 	// Request a balance in the user account
-	async getBalance(token, walletAddress) {
-		let balanceValue;
+	async getBalance(token, walletAddress, callback) {
 		await this.exchangeContract.methods.balanceOf(token, walletAddress).call(function(error, cash) {
 			if (!error) {
-				balanceValue = cash;
+				callback(cash);
+			} else {
+				callback(error);
 			}
 		});
-		return await balanceValue;
 	}
 
 	// Get a cryptocurrency buy or sell order
-	async getOrder(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce) {
-		let temporaryValue;
+	async getOrder(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce, callback) {
 		await this.exchangeContract.methods.order(getToken, getAmount, giveToken, giveAmount, expires, nonce).send({from: fromWhere}, function(error, hash) {
 			if (!error) {
-				temporaryValue = hash;
+				callback(hash);
+			} else {
+				callback(error);
 			}
 		});
-		return await temporaryValue;
 	}
 
 	// To exchange tokens
-	async swapTokens(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce, walletAddress, v, r, s, amountValue, tokenPair, callback) {
-		let temporaryValue;
+	async swapTokens(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce, walletAddress, amountValue, tokenPair, signature, callback) {
+		let temporaryValue = signature.slice(2);
+		let r = '0x' + temporaryValue.slice(0, 64);
+		let s = '0x' + temporaryValue.slice(64, 128);
+		let v = this.web3.utils.toDecimal('0x' + temporaryValue.slice(128, 130));
 		await this.exchangeContract.methods.trade(getToken, getAmount, giveToken, giveAmount, expires, nonce, walletAddress, v, r, s, amountValue, tokenPair).send({from: fromWhere}, function(error, hash) {
 			if (!error) {
-				temporaryValue = hash;
+				callback(hash);
+			} else {
+				callback(error);
 			}
-			callback(hash);
 		});
-		return await temporaryValue;
 	}
 
 	// Cancel cryptocurrency buy or sell order
-	async cancelOrder(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce, v, r, s, pairTokens, callback) {
-		let temporaryValue;
-		await this.exchangeContract.methods.cancelOrder(getToken, getAmount, giveToken, giveAmount, expires, nonce, v, r, s, pairTokens).send({from: fromWhere}, function(error, hash) {
+	async cancelOrder(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce, tokenPair, signature, callback) {
+		let temporaryValue = signature.slice(2);
+		let r = '0x' + temporaryValue.slice(0, 64);
+		let s = '0x' + temporaryValue.slice(64, 128);
+		let v = this.web3.utils.toDecimal('0x' + temporaryValue.slice(128, 130));
+		await this.exchangeContract.methods.cancelOrder(getToken, getAmount, giveToken, giveAmount, expires, nonce, v, r, s, tokenPair).send({from: fromWhere}, function(error, hash) {
 			if (!error) {
-				temporaryValue = hash;
+				callback(hash);
+			} else {
+				callback(error);
 			}
-			callback(hash);
 		});
-		return await temporaryValue;
 	}
 
 	// Personal signature
-	async personalSign(fromWhere, hash) {
-		let signResult;
+	async personalSign(fromWhere, hash, callback) {
 		await this.web3.eth.personal.sign(hash, fromWhere, function(error, result) {
 			if (!error) {
-				signResult = result;
+				callback(result);
+			} else {
+				callback(error);
 			}
 		});
-		return await signResult;
 	}
 
 	// Perform signature verification
-	async checkSign(hash, signature) {
-		let checkingResult;
+	async checkSign(hash, signature, callback) {
 		await this.web3.eth.personal.ecRecover(hash, signature, function(error, result) {
 			if (!error) {
-				checkingResult = result;
+				callback(result);
+			} else {
+				callback(error);
 			}
 		});
-		return await checkingResult;
 	}
 
 	// Get a hash order
 	getOrderHash(getToken, getAmount, giveToken, giveAmount, expires, nonce) {
-		let temporaryValue = this.web3.utils.soliditySha3(this.exchangeContract, getToken, getAmount, giveToken, giveAmount, expires, nonce);
-		return temporaryValue;
+		return this.web3.utils.soliditySha3(this.exchangeContract, getToken, getAmount, giveToken, giveAmount, expires, nonce);
 	}
 
 	// Get a signature
@@ -193,58 +192,74 @@ class Excalibur {
 	}
 
 	// Get approve to use the funds
-	async getFundsApprove(fromWhere, spender, amountValue) {
-		let temporaryValue;
+	async getFundsApprove(fromWhere, spender, amountValue, callback) {
 		await this.exchangeContract.methods.approve(spender, amountValue).send({from: fromWhere}, function(error, hash) {
 			if (!error) {
-				temporaryValue = hash;
+				callback(hash);
+			} else {
+				callback(error);
 			}
 		});
-		return await temporaryValue;
 	}
 
 	// Make a transfer of a some amount
-	async makeTransfer(fromWhere, startPoint, endPoint, amountValue) {
-		let transferValue;
+	async makeTransfer(fromWhere, startPoint, endPoint, amountValue, callback) {
 		await this.exchangeContract.methods.transferFrom(startPoint, endPoint, amountValue).send({from: fromWhere}, function(error, hash) {
 			if (!error) {
-				transferValue = hash;
+				callback(hash)
+			} else {
+				callback(error);
 			}
 		});
-		return await transferValue;
 	}
 
 	// Event creation order
-	async orderEvent() {
-		let temporaryValue;
+	async orderEvent(callback) {
 		await this.exchangeContract.events.Order({fromBlock: 0}, function(error, event) {
 			if (!error) {
-				temporaryValue = event;
+				callback(event);
+			} else {
+				callback(error);
 			}
 		});
-		return await temporaryValue;
 	}
 
-	// Translation into readable form of the Ethereum
-	transformToRSV(signature) {
-		let temporaryValue = signature.slice(2);
-		let r = '0x' + temporaryValue.slice(0, 64);
-		let s = '0x' + temporaryValue.slice(64, 128);
-		let v = this.web3.utils.toDecimal('0x' + temporaryValue.slice(128, 130));
-		return {r: r, s: s, v: v};
-	}
-
-	// Transfrom Wei
-
-	//рассмотреть случай экэсопненты
-	transformWei(numberValue, transformType = 'to', unit = 'ether') {
+	// Transform Wei
+	transformWei(transformValue, transformType = 'to', unit = 'ether') {
+		let newValue = transformValue;
+		if (typeof(newValue) !== "string") {
+			newValue = String(newValue);
+		}
+		newValue = newValue.toUpperCase();
+		if (~newValue.indexOf("E")) {
+			let firstSlice = newValue.slice(0, newValue.indexOf("E", 0));
+			let secondSlice = newValue.slice(newValue.indexOf("E", 0) + 1);
+			if (+secondSlice > 0) {
+				newValue = firstSlice + ".";
+				for (let i = 0; i < +secondSlice; i++) {
+					newValue = newValue + "0";
+				}
+			} else if (+secondSlice < 0) {
+				if (firstSlice.length > -(+secondSlice)) {
+					newValue = firstSlice.slice(0, firstSlice.length - -(+secondSlice)) + "." + firstSlice.slice(firstSlice.length - -(+secondSlice));
+				} else {
+					newValue = "0.";
+					for (let i = 0; i < (-(+secondSlice) - firstSlice.length); i++) {
+						newValue = newValue + "0";
+					}
+					newValue = newValue + firstSlice;
+				}
+			} else {
+				newValue = firstSlice;
+			}
+		}
 		if (transformType === 'to') {
-			return this.web3.utils.toWei(numberValue, unit);
+			return this.web3.utils.toWei(newValue, unit);
 		} else if (transformType === 'from') {
-			return this.web3.utils.fromWei(numberValue, unit);
+			return this.web3.utils.fromWei(newValue, unit);
 		} else {
 			console.log(`Transfrom type ${transformType} is not define.`);
-			return numberValue;
+			return newValue;
 		}
 	}
 
