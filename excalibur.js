@@ -5,8 +5,8 @@
 	|		  Exchange smart contract methods			|
 	|		 		 Module Description					|
 	|													|
-	|		 There will be a description of the 		|
-	|   arguments of the methods for the class to work	|	
+	| This class allows you to create a smart contract, |
+	|	and also provides methods for working with it.	|
 	-----------------------------------------------------
  */
 
