@@ -7,7 +7,7 @@ For additional information you should use the [documentation](https://github.com
 
 ## Table of Contents
 
-* [Installation]()
+* [Installation](#installation)
   * [Node.js]()
   * [Yarn]()
 * [Usage information]()
@@ -21,3 +21,5 @@ For additional information you should use the [documentation](https://github.com
   * [Community]()
   * [Other implementations]()
 * [License]()
+
+## Installtion
