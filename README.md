@@ -8,18 +8,63 @@ For additional information you should use the [documentation](https://github.com
 ## Table of Contents
 
 * [Installation](#installation)
-  * [Node.js]()
-  * [Yarn]()
-* [Usage information]()
+  * [Node.js](#nodejs)
+  * [Yarn](#yarn)
+* [Usage information](#usage-information)
   * [Import class for use in your project]()
   * [Сreate an object of this class]()
   * [Get methods for working with it]()
   * [An example of a method call]()
-* [Contribute!]()
-  * [Building]()
-  * [Testing]()
-  * [Community]()
-  * [Other implementations]()
-* [License]()
+* [Contribute!](#contribute)
+  * [Building](#building-name)
+  * [Testing](#testing-mocha)
+  * [Community](#community)
+  * [Other implementations](#other-implementations)
+* [License](#license)
 
 ## Installation
+
+### Node.js
+
+```bash
+npm install web3
+```
+
+### Yarn
+
+```bash
+yarn add web3
+```
+
+## Usage information
+
+This is not available
+
+## Contribute!
+
+### Building (name)
+
+```bash
+npm run-script build
+```
+
+
+### Testing (mocha)
+
+```bash
+npm test
+```
+
+### Community
+ * [Gitter]()
+ * [Forum]()
+
+
+### Other implementations
+ * Python [LibraryName.py]()
+ * Java [LibraryNamej]()
+ * Rust [rust-LibraryName]()
+
+## License
+
+[Apache v2.0 /We need in LICENSE.md/]() © 2018 Contributors
