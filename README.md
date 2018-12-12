@@ -44,7 +44,7 @@ const Example = require("excalibur");
 Creating an instance of the Excalibur class:
 
 ```js
-let example = new Exchange("https://kovan.infura.io", false, false);
+let example = new Example("https://kovan.infura.io", false, false);
 ```
 
 ### Get methods for working with it
