@@ -223,7 +223,7 @@ function Excalibur(inProviderID, isMainnetAddress = true, isWebsocketProvider = 
 	}
 
 	// Transform Wei
-	this.transformWei = function(transformValue, transformType = 'to', unit = 'ether') {
+	this.transformWei = function(transformValue, transformType = 'from', unit = 'ether') {
 		let newValue = transformValue;
 		if (typeof(newValue) !== "string") {
 			newValue = String(newValue);
