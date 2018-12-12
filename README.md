@@ -13,7 +13,7 @@ For additional information you should use the [documentation](https://github.com
   * [Import class for use in your project](#import-class-for-use-in-your-project)
   * [Сreate an object of this class](#create-an-object-of-this-class)
   * [Get methods for working with it](#get-methods-for-working-with-it)
-  * [An example of a method call](an-example-of-a-method-call)
+  * [An example of a method call](#an-example-of-a-method-call)
 * [Contribute!](#contribute)
   * [Building (BuildName)](#building-buildname)
   * [Testing](#testing-mocha)
