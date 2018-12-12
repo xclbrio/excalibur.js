@@ -67,4 +67,4 @@ npm test
 
 ## License
 
-[Apache v2.0 /We need in LICENSE.md/]() © 2018 Contributors
+[Apache v2.0 /We need LICENSE.md/]() © 2018 Contributors
