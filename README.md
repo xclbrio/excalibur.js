@@ -22,4 +22,4 @@ For additional information you should use the [documentation](https://github.com
   * [Other implementations]()
 * [License]()
 
-## Installtion
+## Installation
