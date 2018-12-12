@@ -16,7 +16,7 @@ For additional information you should use the [documentation](https://github.com
   * [An example of a method call](#an-example-of-a-method-call)
 * [Contribute!](#contribute)
   * [Building (BuildName)](#building-buildname)
-  * [Testing](#testing-mocha)
+  * [Testing (mocha)](#testing-mocha)
   * [Community](#community)
   * [Other implementations](#other-implementations)
 * [License](#license)
