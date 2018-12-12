@@ -12,10 +12,10 @@ For additional information you should use the [documentation](https://github.com
 * [Usage information](#usage-information)
   * [Import class for use in your project](#import-class-for-use-in-your-project)
   * [Сreate an object of this class](#create-an-object-of-this-class)
-  * [Get methods for working with it]()
-  * [An example of a method call]()
+  * [Get methods for working with it](#get-methods-for-working-with-it)
+  * [An example of a method call](an-example-of-a-method-call)
 * [Contribute!](#contribute)
-  * [Building](#building-name)
+  * [Building (BuildName)](#building-buildname)
   * [Testing](#testing-mocha)
   * [Community](#community)
   * [Other implementations](#other-implementations)
@@ -33,19 +33,39 @@ npm install LibraryName
 
 ### Import class for use in your project
 
-Import library to constant
+Import library to constant:
+
 ```js
-const Excalibur = require("./excalibur.js");
+const Exchange = require("excalibur");
 ```
 
 ### Сreate an object of this class
 
+Creating an instance of the Excalibur class:
 
+```js
+let exchange = new Exchange("https://kovan.infura.io", false, false);
+```
 
+### Get methods for working with it
+
+You can get methods for working with your object:
+
+```js
+console.log(exchange);
+```
+
+### An example of a method call
+
+Example of a method call on an object
+
+```js
+exchange.versions();
+```
 
 ## Contribute!
 
-### Building (name)
+### Building (BuildName)
 
 ```bash
 npm run-script build
@@ -72,5 +92,4 @@ At the moment other libraries require improvements
 
 ## License
 
-[Apache v2.0 /We need LICENSE.md/]() © 2018 Contributors
-// Жду LICENSE.md
+[Apache v2.0 /We need LICENSE.md/]() © 2018 Contributors // Жду LICENSE.md
