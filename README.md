@@ -11,7 +11,7 @@ For additional information you should use the [documentation](https://github.com
   * [Node.js](#nodejs)
 * [Usage information](#usage-information)
   * [Import class for use in your project](#import-class-for-use-in-your-project)
-  * [Сreate an object of this class](#create-an-object-of-this-class)
+  * [Create a class instance](#create-a-class-instance)
   * [Get methods for working with it](#get-methods-for-working-with-it)
   * [An example of a method call](#an-example-of-a-method-call)
 * [Contribute!](#contribute)
@@ -39,7 +39,7 @@ Import library to constant:
 const Exchange = require("excalibur");
 ```
 
-### Сreate an object of this class
+### Create a class instance
 
 Creating an instance of the Excalibur class:
 
