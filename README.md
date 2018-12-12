@@ -1,4 +1,4 @@
-# Excalibur Smart Contracts API
+# Excalibur_ Smart Contracts API
 
 This is the Ethereum compatible JavaScript API for smart contracts for work with a decentralized exchange. It's available on npm as a node module.
 
@@ -11,3 +11,4 @@ For additional information you should use the [documentation](https://github.com
   * [Node.js]()
   * [Yarn]()
 * [Usage information]()
+ * []()
