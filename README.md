@@ -36,7 +36,7 @@ npm install LibraryName
 Import library to constant:
 
 ```js
-const Exchange = require("excalibur");
+const Example = require("excalibur");
 ```
 
 ### Create a class instance
@@ -44,7 +44,7 @@ const Exchange = require("excalibur");
 Creating an instance of the Excalibur class:
 
 ```js
-let exchange = new Exchange("https://kovan.infura.io", false, false);
+let example = new Exchange("https://kovan.infura.io", false, false);
 ```
 
 ### Get methods for working with it
@@ -52,7 +52,7 @@ let exchange = new Exchange("https://kovan.infura.io", false, false);
 You can get methods for working with your object:
 
 ```js
-console.log(exchange);
+console.log(example);
 ```
 
 ### An example of a method call
@@ -60,7 +60,7 @@ console.log(exchange);
 Example of a method call on an object:
 
 ```js
-exchange.versions();
+example.versions();
 ```
 
 ## Contribute!
