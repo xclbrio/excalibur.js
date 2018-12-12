@@ -57,7 +57,7 @@ console.log(exchange);
 
 ### An example of a method call
 
-Example of a method call on an object
+Example of a method call on an object:
 
 ```js
 exchange.versions();
