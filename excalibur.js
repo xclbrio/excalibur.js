@@ -17,32 +17,30 @@ const Web3 = require('web3');
 const Settings = require("./config/settings.json");
 
 
-// The "Excalibur" class which includes methods for working with it
-class Excalibur {
+// The "Excalibur" class constructor which includes methods for working with it
+function Excalibur(inProviderID, isMainnetAddress = true, isWebsocketProvider = true) {
 
-	// Class constructor 
-	constructor(inProviderID, isMainnetAddress = true, isWebsocketProvider = true) {
-		// Creating a variable and assigning it the provider ID. The formal parameter should receive as input the actual parameter as a string
-		this.providerID = inProviderID;
-		// Importing the contract address from the "settings.json" file
-		this.contractAddress = (isMainnetAddress === true) ? Settings.mainnetAddress : Settings.kovanAddress;
-		// Creating an object "web3" from the library "Web3"
-		this.web3 = (isWebsocketProvider === true) ? new Web3(new Web3.providers.WebsocketProvider(this.providerID)) : new Web3(new Web3.providers.HttpProvider(this.providerID));
-		// Import ABI exchange from the file "settings.json"
-		this.exchangeABI = Settings.exchangeABI;
-		// Importing an ABI token from the file "settings.json"
-		this.tokenABI = Settings.tokenABI;
-		// Creating a variable that will work with contracts for the exchange (Exchange Contract)
-		this.exchangeContract = new this.web3.eth.Contract(this.exchangeABI, this.contractAddress);
-		// Creating a variable that will work with contracts for a token (Token Contract)
-		this.tokenContract = new this.web3.eth.Contract(this.tokenABI, this.contractAddress);
-		// Importing the library version from the file "settings.json"
-		this.libraryVersion = Settings.libraryVersion;
-	}
+	// Creating a variable and assigning it the provider ID. The formal parameter should receive as input the actual parameter as a string
+	let providerID = inProviderID;
+	// Importing the contract address from the "settings.json" file
+	let contractAddress = (isMainnetAddress === true) ? Settings.mainnetAddress : Settings.kovanAddress;
+	// Creating an object "web3" from the library "Web3"
+	let web3 = (isWebsocketProvider === true) ? new Web3(new Web3.providers.WebsocketProvider(providerID)) : new Web3(new Web3.providers.HttpProvider(providerID));
+	// Import ABI exchange from the file "settings.json"
+	let exchangeABI = Settings.exchangeABI;
+	// Importing an ABI token from the file "settings.json"
+	let tokenABI = Settings.tokenABI;
+	// Creating a variable that will work with contracts for the exchange (Exchange Contract)
+	let exchangeContract = new web3.eth.Contract(exchangeABI, contractAddress);
+	// Creating a variable that will work with contracts for a token (Token Contract)
+	let tokenContract = new web3.eth.Contract(tokenABI, contractAddress);
+	// Importing the library version from the file "settings.json"
+	let libraryVersion = Settings.libraryVersion;
+
 
 	// Getting an account by it's index
-	async getAccount(accountIndex, callback) {
-		await this.web3.eth.getAccounts(function(error, array) {
+	this.getAccount = async function(accountIndex, callback) {
+		await web3.eth.getAccounts(function(error, array) {
 			if (!error) {
 				callback(array[accountIndex]);
 			} else {
@@ -52,8 +50,8 @@ class Excalibur {
 	}
 
 	// Deposit some amount
-	async makeDeposit(fromWhere, depositAmount, callback) {
-		await this.exchangeContract.methods.deposit().send({from: fromWhere, value: depositAmount}, function(error, hash) {
+	this.makeDeposit = async function(fromWhere, depositAmount, callback) {
+		await exchangeContract.methods.deposit().send({from: fromWhere, value: depositAmount}, function(error, hash) {
 			if (!error) {
 				callback(hash);
 			} else {
@@ -63,8 +61,8 @@ class Excalibur {
 	}
 
 	// Withdraw funds
-	async withdrawFunds(fromWhere, amountValue, callback) {
-		await this.exchangeContract.methods.withdraw(amountValue).send({from: fromWhere}, function(error, hash) {
+	this.withdrawFunds = async function(fromWhere, amountValue, callback) {
+		await exchangeContract.methods.withdraw(amountValue).send({from: fromWhere}, function(error, hash) {
 			if (!error) {
 				callback(hash);
 			} else {
@@ -74,16 +72,16 @@ class Excalibur {
 	}
 
 	// Add some tokens
-	async makeDepositToken(fromWhere, spender, token, amountValue, callback) {
+	this.makeDepositToken = async function(fromWhere, spender, token, amountValue, callback) {
 		let tokenObject = new Object;
-		await this.tokenContract.methods.approve(spender, amountValue).send({from: fromWhere}, function(error, hash) {
+		await tokenContract.methods.approve(spender, amountValue).send({from: fromWhere}, function(error, hash) {
 			if (!error) {
 				callback(hash);
 				tokenObject.approveHash = hash;
 			} else {
 				callback(error);
 			}
-		}).then(await this.exchangeContract.methods.withdrawToken(token, amountValue).send({from: fromWhere}, function(error, hash) {
+		}).then(await exchangeContract.methods.withdrawToken(token, amountValue).send({from: fromWhere}, function(error, hash) {
 			if (!error) {
 				callback(hash);
 				tokenObject.depositHash = hash;
@@ -95,8 +93,8 @@ class Excalibur {
 	}
 
 	// Withdraw tokens
-	async withdrawTokens(fromWhere, token, amountValue, callback) {
-		await this.exchangeContract.methods.withdrawToken(token, amountValue).send({from: fromWhere}, function(error, hash) {
+	this.withdrawTokens = async function(fromWhere, token, amountValue, callback) {
+		await exchangeContract.methods.withdrawToken(token, amountValue).send({from: fromWhere}, function(error, hash) {
 			if (!error) {
 				callback(hash);
 			} else {
@@ -106,8 +104,8 @@ class Excalibur {
 	}
 
 	// Request a balance in the user account
-	async getBalance(token, walletAddress, callback) {
-		await this.exchangeContract.methods.balanceOf(token, walletAddress).call(function(error, cash) {
+	this.getBalance = async function(token, walletAddress, callback) {
+		await exchangeContract.methods.balanceOf(token, walletAddress).call(function(error, cash) {
 			if (!error) {
 				callback(cash);
 			} else {
@@ -117,8 +115,8 @@ class Excalibur {
 	}
 
 	// Get a cryptocurrency buy or sell order
-	async getOrder(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce, callback) {
-		await this.exchangeContract.methods.order(getToken, getAmount, giveToken, giveAmount, expires, nonce).send({from: fromWhere}, function(error, hash) {
+	this.getOrder = async function(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce, callback) {
+		await exchangeContract.methods.order(getToken, getAmount, giveToken, giveAmount, expires, nonce).send({from: fromWhere}, function(error, hash) {
 			if (!error) {
 				callback(hash);
 			} else {
@@ -128,12 +126,12 @@ class Excalibur {
 	}
 
 	// To exchange tokens
-	async swapTokens(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce, walletAddress, amountValue, tokenPair, signature, callback) {
+	this.swapTokens = async function(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce, walletAddress, amountValue, tokenPair, signature, callback) {
 		let temporaryValue = signature.slice(2);
 		let r = '0x' + temporaryValue.slice(0, 64);
 		let s = '0x' + temporaryValue.slice(64, 128);
-		let v = this.web3.utils.toDecimal('0x' + temporaryValue.slice(128, 130));
-		await this.exchangeContract.methods.trade(getToken, getAmount, giveToken, giveAmount, expires, nonce, walletAddress, v, r, s, amountValue, tokenPair).send({from: fromWhere}, function(error, hash) {
+		let v = web3.utils.toDecimal('0x' + temporaryValue.slice(128, 130));
+		await exchangeContract.methods.trade(getToken, getAmount, giveToken, giveAmount, expires, nonce, walletAddress, v, r, s, amountValue, tokenPair).send({from: fromWhere}, function(error, hash) {
 			if (!error) {
 				callback(hash);
 			} else {
@@ -143,12 +141,12 @@ class Excalibur {
 	}
 
 	// Cancel cryptocurrency buy or sell order
-	async cancelOrder(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce, tokenPair, signature, callback) {
+	this.cancelOrder = async function(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce, tokenPair, signature, callback) {
 		let temporaryValue = signature.slice(2);
 		let r = '0x' + temporaryValue.slice(0, 64);
 		let s = '0x' + temporaryValue.slice(64, 128);
-		let v = this.web3.utils.toDecimal('0x' + temporaryValue.slice(128, 130));
-		await this.exchangeContract.methods.cancelOrder(getToken, getAmount, giveToken, giveAmount, expires, nonce, v, r, s, tokenPair).send({from: fromWhere}, function(error, hash) {
+		let v = web3.utils.toDecimal('0x' + temporaryValue.slice(128, 130));
+		await exchangeContract.methods.cancelOrder(getToken, getAmount, giveToken, giveAmount, expires, nonce, v, r, s, tokenPair).send({from: fromWhere}, function(error, hash) {
 			if (!error) {
 				callback(hash);
 			} else {
@@ -158,8 +156,8 @@ class Excalibur {
 	}
 
 	// Personal signature
-	async personalSign(fromWhere, hash, callback) {
-		await this.web3.eth.personal.sign(hash, fromWhere, function(error, result) {
+	this.personalSign = async function(fromWhere, hash, callback) {
+		await web3.eth.personal.sign(hash, fromWhere, function(error, result) {
 			if (!error) {
 				callback(result);
 			} else {
@@ -169,8 +167,8 @@ class Excalibur {
 	}
 
 	// Perform signature verification
-	async checkSign(hash, signature, callback) {
-		await this.web3.eth.personal.ecRecover(hash, signature, function(error, result) {
+	this.checkSign = async function(hash, signature, callback) {
+		await web3.eth.personal.ecRecover(hash, signature, function(error, result) {
 			if (!error) {
 				callback(result);
 			} else {
@@ -180,20 +178,20 @@ class Excalibur {
 	}
 
 	// Get a hash order
-	getOrderHash(getToken, getAmount, giveToken, giveAmount, expires, nonce) {
-		return this.web3.utils.soliditySha3(this.exchangeContract, getToken, getAmount, giveToken, giveAmount, expires, nonce);
+	this.getOrderHash = function(getToken, getAmount, giveToken, giveAmount, expires, nonce) {
+		return web3.utils.soliditySha3(exchangeContract, getToken, getAmount, giveToken, giveAmount, expires, nonce);
 	}
 
 	// Get a signature
-	getSign(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce, callback) {
-		let hash = this.getOrderHash(getToken, getAmount, giveToken, giveAmount, expires, nonce);
+	this.getSign = function(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce, callback) {
+		let hash = getOrderHash(getToken, getAmount, giveToken, giveAmount, expires, nonce);
 		callback(hash);
-		return this.personalSign(fromWhere, hash);
+		return personalSign(fromWhere, hash);
 	}
 
 	// Get approve to use the funds
-	async getFundsApprove(fromWhere, spender, amountValue, callback) {
-		await this.exchangeContract.methods.approve(spender, amountValue).send({from: fromWhere}, function(error, hash) {
+	this.getFundsApprove = async function(fromWhere, spender, amountValue, callback) {
+		await exchangeContract.methods.approve(spender, amountValue).send({from: fromWhere}, function(error, hash) {
 			if (!error) {
 				callback(hash);
 			} else {
@@ -203,10 +201,10 @@ class Excalibur {
 	}
 
 	// Make a transfer of a some amount
-	async makeTransfer(fromWhere, startPoint, endPoint, amountValue, callback) {
-		await this.exchangeContract.methods.transferFrom(startPoint, endPoint, amountValue).send({from: fromWhere}, function(error, hash) {
+	this.makeTransfer = async function(fromWhere, startPoint, endPoint, amountValue, callback) {
+		await exchangeContract.methods.transferFrom(startPoint, endPoint, amountValue).send({from: fromWhere}, function(error, hash) {
 			if (!error) {
-				callback(hash)
+				callback(hash);
 			} else {
 				callback(error);
 			}
@@ -214,8 +212,8 @@ class Excalibur {
 	}
 
 	// Event creation order
-	async orderEvent(callback) {
-		await this.exchangeContract.events.Order({fromBlock: 0}, function(error, event) {
+	this.orderEvent = async function(callback) {
+		await exchangeContract.events.Order({fromBlock: 0}, function(error, event) {
 			if (!error) {
 				callback(event);
 			} else {
@@ -225,7 +223,7 @@ class Excalibur {
 	}
 
 	// Transform Wei
-	transformWei(transformValue, transformType = 'to', unit = 'ether') {
+	this.transformWei = function(transformValue, transformType = 'to', unit = 'ether') {
 		let newValue = transformValue;
 		if (typeof(newValue) !== "string") {
 			newValue = String(newValue);
@@ -254,9 +252,9 @@ class Excalibur {
 			}
 		}
 		if (transformType === 'to') {
-			return this.web3.utils.toWei(newValue, unit);
+			return web3.utils.toWei(newValue, unit);
 		} else if (transformType === 'from') {
-			return this.web3.utils.fromWei(newValue, unit);
+			return web3.utils.fromWei(newValue, unit);
 		} else {
 			console.log(`Transfrom type ${transformType} is not define.`);
 			return newValue;
@@ -264,12 +262,12 @@ class Excalibur {
 	}
 
 	// Information about the version of the library and the versions of the used additions to it
-	versions() {
-		console.log(`Excalibur library:  ver. ${this.libraryVersion}`);
-		console.log(`Web3 library:  ver. ${this.web3.version}`);
+	this.versions = function() {
+		console.log(`Excalibur library:  ver. ${libraryVersion}`);
+		console.log(`Web3 library:  ver. ${web3.version}`);
 	}
-	
+
 }
 
-// Importing a library for use in other projects
+// Exporting the library for use in other projects
 module.exports = Excalibur;
