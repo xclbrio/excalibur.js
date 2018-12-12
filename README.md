@@ -10,8 +10,8 @@ For additional information you should use the [documentation](https://github.com
 * [Installation](#installation)
   * [Node.js](#nodejs)
 * [Usage information](#usage-information)
-  * [Import class for use in your project]()
-  * [Сreate an object of this class]()
+  * [Import class for use in your project](#import-class-for-use-in-your-project)
+  * [Сreate an object of this class](#create-an-object-of-this-class)
   * [Get methods for working with it]()
   * [An example of a method call]()
 * [Contribute!](#contribute)
@@ -31,7 +31,17 @@ npm install LibraryName
 
 ## Usage information
 
-This is not available
+### Import class for use in your project
+
+Import library to constant
+```js
+const Excalibur = require("./excalibur.js");
+```
+
+### Сreate an object of this class
+
+
+
 
 ## Contribute!
 
@@ -49,8 +59,8 @@ npm test
 ```
 
 ### Community
- * [Gitter]()
- * [Forum]()
+ * [Gitter]() // надо прикрутить ссылку
+ * [Forum]() //надо прикрутить форум
 
 
 ### Other implementations
@@ -63,3 +73,4 @@ At the moment other libraries require improvements
 ## License
 
 [Apache v2.0 /We need LICENSE.md/]() © 2018 Contributors
+// Жду LICENSE.md
