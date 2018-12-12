@@ -27,13 +27,13 @@ For additional information you should use the [documentation](https://github.com
 ### Node.js
 
 ```bash
-npm install web3
+npm install LibraryName
 ```
 
 ### Yarn
 
 ```bash
-yarn add web3
+yarn add LibraryName
 ```
 
 ## Usage information
