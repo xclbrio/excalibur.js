@@ -9,7 +9,6 @@ For additional information you should use the [documentation](https://github.com
 
 * [Installation](#installation)
   * [Node.js](#nodejs)
-  * [Yarn](#yarn)
 * [Usage information](#usage-information)
   * [Import class for use in your project]()
   * [Сreate an object of this class]()
@@ -28,12 +27,6 @@ For additional information you should use the [documentation](https://github.com
 
 ```bash
 npm install LibraryName
-```
-
-### Yarn
-
-```bash
-yarn add LibraryName
 ```
 
 ## Usage information
@@ -61,9 +54,11 @@ npm test
 
 
 ### Other implementations
- * Python [LibraryName.py]()
- * Java [LibraryNamej]()
- * Rust [rust-LibraryName]()
+
+At the moment other libraries require improvements
+ * Python [LibraryName.py] [NOT AVAILABLE]
+ * Java [LibraryNamej] [NOT AVAILABLE]
+ * Rust [rust-LibraryName] [NOT AVAILABLE]
 
 ## License
 
