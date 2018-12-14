@@ -9,6 +9,7 @@ For additional information you should use the [documentation](https://github.com
 
 * [Installation](#installation)
   * [Node.js](#nodejs)
+  * [Yarn](#yarn)
 * [Usage information](#usage-information)
   * [Import class for use in your project](#import-class-for-use-in-your-project)
   * [Create a class instance](#create-a-class-instance)
@@ -26,7 +27,12 @@ For additional information you should use the [documentation](https://github.com
 ### Node.js
 
 ```bash
-npm install LibraryName
+npm install LIBRARYNAME
+```
+
+### Yarn
+```bash
+yarn add LIBRARYNAME
 ```
 
 ## Usage information
@@ -36,7 +42,7 @@ npm install LibraryName
 Import library to constant:
 
 ```js
-const Example = require("excalibur");
+const Example = require("LIBRARYNAME");
 ```
 
 ### Create a class instance
@@ -85,7 +91,7 @@ npm test
 ### Other implementations
 
 At the moment other libraries require improvements
- * Python [LibraryName.py] [NOT AVAILABLE]
+ * Python [LIBRARYNAME.py] [NOT AVAILABLE]
  * Java [LibraryNamej] [NOT AVAILABLE]
  * Rust [rust-LibraryName] [NOT AVAILABLE]
 
