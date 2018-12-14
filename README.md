@@ -79,8 +79,7 @@ npm test
 ```
 
 ### Community
- * [Gitter]() // надо прикрутить ссылку
- * [Forum]() //надо прикрутить форум
+ * [Gitter](https://gitter.im/xclbrio/excalibur.js)
 
 
 ### Other implementations
