@@ -79,7 +79,7 @@ npm test
 ```
 
 ### Community
- * [Gitter](https://gitter.im/xclbrio/excalibur.js)
+ * [Gitter](https://gitter.im/xclbrio/excalibur.js?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
 
 
 ### Other implementations
@@ -91,4 +91,4 @@ At the moment other libraries require improvements
 
 ## License
 
-[Apache v2.0 /We need LICENSE.md/]() © 2018 Contributors // Жду LICENSE.md
+[Apache v2.0 /We need LICENSE.md/]() © 2018 Contributors
