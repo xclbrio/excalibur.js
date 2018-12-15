@@ -1,22 +1,19 @@
 {
   "name": "LIBRARYNAME",
   "version": "1.0.0",
-  "description": "Smart Contracts Server Application",
+  "description": "Excalibur_ Smart Contracts API for working with a decentralized exchange",
   "main": "excalibur.js",
-  
   "scripts": {
-    "test": "npm run library",
-    "unit": "ADD MOCHA TEST AND COVERAGE KEY",
-    "build": "ADD BUILD SCRIPTS"
+    "unit": "____it's place for a mocha____",
+    "test": "npm run unit"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/D1mk4Novikov/excalibur.js.git"
   },
   "author": {
-  	"name": "D1mk4Novikov",
-  	"email": "dimka22081998@gmail.com"
+    "name": "D1mk4Novikov",
+    "email": "dimka22081998@gmail.com"
   },
   "license": "Apache-2.0",
   "bugs": {
@@ -27,18 +24,19 @@
     "web3": "^1.0.0-beta.37"
   },
   "keywords": [
-  	"Smart Contracts",
-  	"Decentralized exchange",
-  	"Excahnge",
-  	"Ethereum platform",
-  	"Excalibur_ API",
-  	"Web3.js",
-  	"web3"
+    "smart contracts",
+    "ethereum",
+    "javascript",
+    "API",
+    "Excalibur_",
+    "decentralized exchange"
   ],
   "private": true,
   "engines": {
-  	"node": ">= 10.13.0",
-  	"npm": ">= 6.4.1",
-  	"yarn": "^ 1.12.3"
+    "node": ">= 10.13.0",
+    "npm": ">= 6.4.1"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
   }
 }
