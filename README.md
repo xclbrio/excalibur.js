@@ -9,7 +9,6 @@ For additional information you should use the [documentation](https://github.com
 
 * [Installation](#installation)
   * [Node.js](#nodejs)
-  * [Yarn](#yarn)
 * [Usage information](#usage-information)
   * [Import class for use in your project](#import-class-for-use-in-your-project)
   * [Create a class instance](#create-a-class-instance)
@@ -28,11 +27,6 @@ For additional information you should use the [documentation](https://github.com
 
 ```bash
 npm install LIBRARYNAME
-```
-
-### Yarn
-```bash
-yarn add LIBRARYNAME
 ```
 
 ## Usage information
@@ -92,9 +86,9 @@ npm test
 
 At the moment other libraries require improvements
  * Python [LIBRARYNAME.py] [NOT AVAILABLE]
- * Java [LibraryNamej] [NOT AVAILABLE]
- * Rust [rust-LibraryName] [NOT AVAILABLE]
+ * Java [LIBRARYNAMEj] [NOT AVAILABLE]
+ * Rust [rust-LIBRARYNAME] [NOT AVAILABLE]
 
 ## License
 
-[Apache v2.0 /We need LICENSE.md/]() © 2018 Contributors
+[Apache v2.0]() © 2018 Contributors
