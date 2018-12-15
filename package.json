@@ -1,16 +1,23 @@
 {
-  "name": "excalibur",
+  "name": "LIBRARYNAME",
   "version": "1.0.0",
-  "description": "",
+  "description": "Smart Contracts Server Application",
   "main": "excalibur.js",
+  
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run library",
+    "unit": "ADD MOCHA TEST AND COVERAGE KEY",
+    "build": "ADD BUILD SCRIPTS"
   },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/D1mk4Novikov/excalibur.js.git"
   },
-  "author": "",
+  "author": {
+  	"name": "D1mk4Novikov",
+  	"email": "dimka22081998@gmail.com"
+  },
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/D1mk4Novikov/excalibur.js/issues"
@@ -18,5 +25,20 @@
   "homepage": "https://github.com/D1mk4Novikov/excalibur.js#readme",
   "dependencies": {
     "web3": "^1.0.0-beta.37"
+  },
+  "keywords": [
+  	"Smart Contracts",
+  	"Decentralized exchange",
+  	"Excahnge",
+  	"Ethereum platform",
+  	"Excalibur_ API",
+  	"Web3.js",
+  	"web3"
+  ],
+  "private": true,
+  "engines": {
+  	"node": ">= 10.13.0",
+  	"npm": ">= 6.4.1",
+  	"yarn": "^ 1.12.3"
   }
 }
