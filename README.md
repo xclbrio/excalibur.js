@@ -70,7 +70,7 @@ Example of a method call on an object:
 exchange.versions();
 ```
 
-### An example how to exchange tokens
+### An example how to swap tokens
 
 Example of a method call for the exchange of users' assets:
 
