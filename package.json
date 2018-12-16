@@ -4,7 +4,7 @@
   "description": "Excalibur_ Smart Contracts API for working with a decentralized exchange",
   "main": "excalibur.js",
   "scripts": {
-    "unit": "____it's place for a mocha____",
+    "unit": "mocha test.js",
     "test": "npm run unit"
   },
   "repository": {
@@ -33,10 +33,11 @@
   ],
   "private": true,
   "engines": {
-    "node": ">= 10.13.0",
-    "npm": ">= 6.4.1"
+    "node": ">=10.13.0",
+    "npm": ">=6.4.1"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
     "mocha": "^5.2.0"
   }
 }

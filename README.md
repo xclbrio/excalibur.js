@@ -1,5 +1,11 @@
 # Excalibur_ Smart Contracts API
 
+[![](https://img.shields.io/badge/project-Excalibur__-ef5777.svg?style=popout-square)](https://github.com/xclbrio)
+[![GitHub](https://img.shields.io/github/license/xclbrio/ipfsWebDist.svg?style=flat-square)](https://github.com/xclbrio/excalibur.js/blob/1.0-dev/LICENSE)
+[![Travis (.com)](https://img.shields.io/travis/com/xclbrio/excalibur.js.svg?style=flat-square)](https://travis-ci.com/xclbrio/excalibur.js)
+[![GitHub release](https://img.shields.io/github/release/xclbrio/excalibur.js.svg?style=flat-square)](https://github.com/xclbrio/excalibur.js/releases)
+[![Gitter](https://img.shields.io/gitter/room/:user/:repo.svg?style=flat-square)](https://gitter.im/xclbrio/Lobby)
+
 This is the Ethereum compatible JavaScript API for smart contracts for work with a decentralized exchange. It's available on npm as a node module.
 
 You need to run a local Ethereum node to use this library.
@@ -15,7 +21,7 @@ For additional information you should use the [documentation](https://github.com
   * [Get methods for working with it](#get-methods-for-working-with-it)
   * [An example of a method call](#an-example-of-a-method-call)
 * [Contribute!](#contribute)
-  * [Building (BuildName)](#building-buildname)
+  * [Building](#building)
   * [Testing (mocha)](#testing-mocha)
   * [Community](#community)
   * [Other implementations](#other-implementations)
@@ -65,7 +71,7 @@ example.versions();
 
 ## Contribute!
 
-### Building (BuildName)
+### Building
 
 ```bash
 npm run-script build
@@ -78,9 +84,9 @@ npm run-script build
 npm test
 ```
 
-### Community
- * [Gitter](https://gitter.im/xclbrio/excalibur.js?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
-
+### Communications
+ * [Gitter](https://gitter.im/xclbrio/Lobby)
+ * Email: support@xclbr.io
 
 ### Other implementations
 
@@ -91,4 +97,4 @@ At the moment other libraries require improvements
 
 ## License
 
-[Apache v2.0]() © 2018 Contributors
+[Apache v2.0](https://github.com/xclbrio/excalibur.js/blob/1.0-dev/LICENSE) © 2018 Contributors

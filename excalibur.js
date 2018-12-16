@@ -263,7 +263,7 @@ function Excalibur(inProviderID, isMainnetAddress = true, isWebsocketProvider = 
 
 	// Information about the version of the library and the versions of the used additions to it
 	this.versions = function() {
-		console.log(`Excalibur library:  ver. ${libraryVersion}`);
+		console.log(`Excalibur_ library:  ver. ${libraryVersion}`);
 		console.log(`Web3 library:  ver. ${web3.version}`);
 	}
 
