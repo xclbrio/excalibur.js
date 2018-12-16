@@ -8,7 +8,7 @@
 
 This library allows you to work with smart contracts based on the Ethereum blockchain.
 
-Node.js and NPM are required to use this library. It is available as LIBRARYNAME in the NPM.
+Node.js and NPM are required to use this library. It is available as excalibur in the NPM.
 
 All the necessary information on the initial setup and use can be obtained here, additional information can be obtained from the [documentation](https://github.com/xclbrio/wiki/wiki/JavaScript-API) for this library.
 
@@ -32,7 +32,7 @@ All the necessary information on the initial setup and use can be obtained here,
 ### Node.js
 
 ```bash
-npm install LIBRARYNAME
+npm install excaliburjs
 ```
 
 ## Usage information
@@ -42,7 +42,7 @@ npm install LIBRARYNAME
 Import library to constant:
 
 ```js
-const Example = require("LIBRARYNAME");
+const Excalibur = require("excaliburjs");
 ```
 
 ### Create a class instance
@@ -50,7 +50,7 @@ const Example = require("LIBRARYNAME");
 Creating an instance of the Excalibur class:
 
 ```js
-let example = new Example("https://kovan.infura.io", false, false);
+let exchange = new Excalibur("https://kovan.infura.io", false, false);
 ```
 
 ### Get methods for working with it
@@ -58,7 +58,7 @@ let example = new Example("https://kovan.infura.io", false, false);
 You can get methods for working with your object:
 
 ```js
-console.log(example);
+console.log(exchange);
 ```
 
 ### An example of a method call
@@ -66,7 +66,7 @@ console.log(example);
 Example of a method call on an object:
 
 ```js
-example.versions();
+exchange.versions();
 ```
 
 ## Other
@@ -78,16 +78,16 @@ npm test
 ```
 
 ### Communications
- * [Gitter](https://gitter.im/xclbrio/Lobby)
+ * Chat: [Gitter](https://gitter.im/xclbrio/Lobby)
  * Email: support@xclbr.io
 
 ### Other implementations
 
 At the moment other libraries require improvements
- * Python [LIBRARYNAME.py] [NOT AVAILABLE]
- * Java [LIBRARYNAMEj] [NOT AVAILABLE]
- * Rust [rust-LIBRARYNAME] [NOT AVAILABLE]
+ * Python [NOT AVAILABLE]
+ * Java [NOT AVAILABLE]
+ * Rust [NOT AVAILABLE]
 
 ## License
 
-[Apache v2.0](https://github.com/xclbrio/excalibur.js/blob/1.0-dev/LICENSE) © 2018 Contributors
+[Apache v2.0](https://github.com/xclbrio/excalibur.js/blob/1.0-dev/LICENSE) © 2018 ExcaliburAlpha OÜ
