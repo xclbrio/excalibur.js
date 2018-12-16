@@ -1,4 +1,4 @@
-# Excalibur_ Library for smart contracts
+# Excalibur_ Smart Contracts API
 
 [![](https://img.shields.io/badge/project-Excalibur__-ef5777.svg?style=popout-square)](https://github.com/xclbrio)
 [![GitHub](https://img.shields.io/github/license/xclbrio/ipfsWebDist.svg?style=flat-square)](https://github.com/xclbrio/excalibur.js/blob/1.0-dev/LICENSE)
@@ -20,7 +20,7 @@ For additional information you should use the [documentation](https://github.com
   * [Create a class instance](#create-a-class-instance)
   * [Get methods for working with it](#get-methods-for-working-with-it)
   * [An example of a method call](#an-example-of-a-method-call)
-* [Communication](#communication)
+* [Other](#other)
   * [Testing (mocha)](#testing-mocha)
   * [Community](#community)
   * [Other implementations](#other-implementations)
@@ -68,7 +68,7 @@ Example of a method call on an object:
 example.versions();
 ```
 
-## Contribute!
+## Other
 
 ### Testing (mocha)
 
