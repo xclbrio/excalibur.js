@@ -1,4 +1,4 @@
-# Excalibur_ Smart Contracts API
+# Excalibur_ Library for smart contracts
 
 [![](https://img.shields.io/badge/project-Excalibur__-ef5777.svg?style=popout-square)](https://github.com/xclbrio)
 [![GitHub](https://img.shields.io/github/license/xclbrio/ipfsWebDist.svg?style=flat-square)](https://github.com/xclbrio/excalibur.js/blob/1.0-dev/LICENSE)
