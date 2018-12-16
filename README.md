@@ -77,7 +77,7 @@ exchange.versions();
 npm test
 ```
 
-### Communications
+### Community
  * Chat: [Gitter](https://gitter.im/xclbrio/Lobby)
  * Email: support@xclbr.io
 
