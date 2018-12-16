@@ -1,7 +1,7 @@
 {
-  "name": "LIBRARYNAME",
+  "name": "excaliburjs",
   "version": "1.0.0",
-  "description": "Excalibur_ Smart Contracts API for working with a decentralized exchange",
+  "description": "Excalibur_ JavaScript Library",
   "main": "excalibur.js",
   "scripts": {
     "unit": "mocha test.js",
@@ -9,27 +9,28 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/D1mk4Novikov/excalibur.js.git"
+    "url": "git+https://github.com/xclbrio/excalibur.js.git"
   },
   "author": {
-    "name": "D1mk4Novikov",
-    "email": "dimka22081998@gmail.com"
+    "name": "ExcaliburAlpha OÜ",
+    "email": "support@xclbr.io"
   },
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/D1mk4Novikov/excalibur.js/issues"
+    "url": "https://github.com/xclbrio/excalibur.js/issues"
   },
-  "homepage": "https://github.com/D1mk4Novikov/excalibur.js#readme",
+  "homepage": "https://github.com/xclbrio/excalibur.js#readme",
   "dependencies": {
     "web3": "^1.0.0-beta.37"
   },
   "keywords": [
-    "smart contracts",
+    "smart contract",
     "ethereum",
     "javascript",
-    "API",
-    "Excalibur_",
-    "decentralized exchange"
+    "api",
+    "excalibur_",
+    "dex",
+    "exchange"
   ],
   "private": true,
   "engines": {
