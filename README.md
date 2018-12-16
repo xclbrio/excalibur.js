@@ -6,7 +6,7 @@
 [![GitHub release](https://img.shields.io/github/release/xclbrio/excalibur.js.svg?style=flat-square)](https://github.com/xclbrio/excalibur.js/releases)
 [![Gitter](https://img.shields.io/gitter/room/:user/:repo.svg?style=flat-square)](https://gitter.im/xclbrio/Lobby)
 
-This library allows you to create smart contracts based on the Ethereum blockchain.
+This library allows you to work with smart contracts based on the Ethereum blockchain.
 
 Node.js and NPM are required to use this library. It is available as LIBRARYNAME in the NPM.
 
