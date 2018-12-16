@@ -20,7 +20,7 @@ For additional information you should use the [documentation](https://github.com
   * [Create a class instance](#create-a-class-instance)
   * [Get methods for working with it](#get-methods-for-working-with-it)
   * [An example of a method call](#an-example-of-a-method-call)
-* [Contribute!](#contribute)
+* [Communication](#communication)
   * [Testing (mocha)](#testing-mocha)
   * [Community](#community)
   * [Other implementations](#other-implementations)
