@@ -1,6 +1,6 @@
 {
   "name": "excaliburjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Excalibur_ JavaScript Library",
   "main": "excalibur.js",
   "scripts": {
