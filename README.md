@@ -21,7 +21,6 @@ For additional information you should use the [documentation](https://github.com
   * [Get methods for working with it](#get-methods-for-working-with-it)
   * [An example of a method call](#an-example-of-a-method-call)
 * [Contribute!](#contribute)
-  * [Building](#building)
   * [Testing (mocha)](#testing-mocha)
   * [Community](#community)
   * [Other implementations](#other-implementations)
@@ -70,13 +69,6 @@ example.versions();
 ```
 
 ## Contribute!
-
-### Building
-
-```bash
-npm run-script build
-```
-
 
 ### Testing (mocha)
 
