@@ -1,16 +1,3 @@
-/*
-	-----------------------------------------------------
-	|			   Decentralized Exchange	 			|
-	-----------------------------------------------------
-	|		  Exchange smart contract methods			|
-	|		 		 Module Description					|
-	|													|
-	| This class allows you to create a smart contract, |
-	|	and also provides methods for working with it.	|
-	-----------------------------------------------------
- */
-
-
 // Import the "Web3" library and it's binding to a constant for working with it
 const Web3 = require('web3');
 // Import a configuration file and it's binding to a constant for working with it
