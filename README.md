@@ -23,7 +23,7 @@ All the necessary information on the initial setup and use can be obtained here,
   * [An example of a method call](#an-example-of-a-method-call)
 * [Other](#other)
   * [Testing (mocha)](#testing-mocha)
-  * [Community](#community)
+  * [Community](#сommunity)
   * [Other implementations](#other-implementations)
 * [License](#license)
 
@@ -77,7 +77,7 @@ exchange.versions();
 npm test
 ```
 
-### Сommunity
+### Community
  * Chat: [Gitter](https://gitter.im/xclbrio/Lobby)
  * Email: support@xclbr.io
 
