@@ -1,6 +1,6 @@
 {
   "name": "excaliburjs",
-  "version": "1.0.4",
+  "version": "1.0.0",
   "description": "Excalibur_ JavaScript Library",
   "main": "excalibur.js",
   "scripts": {
@@ -32,7 +32,7 @@
     "dex",
     "exchange"
   ],
-  "private": false,
+  "private": true,
   "engines": {
     "node": ">=10.13.0",
     "npm": ">=6.4.1"
