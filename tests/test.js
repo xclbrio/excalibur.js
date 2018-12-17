@@ -5,6 +5,8 @@ const Excalibur = require("./excalibur.js");
 let excalibur = new Excalibur("https://kovan.infura.io", false, false);
 
 
+
+
 describe("Transform from/to Wei", function() {
 
 	describe("From wei to ether", function() {
@@ -104,3 +106,13 @@ describe("Transform from/to Wei", function() {
 	});
 
 });
+
+/*
+describe("Get information about library versions", function() {
+
+	it("About versions:", function() {
+		assert.
+	});
+
+});
+*/

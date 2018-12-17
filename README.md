@@ -6,6 +6,8 @@
 [![GitHub release](https://img.shields.io/github/release/xclbrio/excalibur.js.svg?style=flat-square)](https://github.com/xclbrio/excalibur.js/releases)
 [![Gitter](https://img.shields.io/gitter/room/:user/:repo.svg?style=flat-square)](https://gitter.im/xclbrio/Lobby)
 
+[![NPM](https://nodei.co/npm/excaliburjs.png?mini=true)](https://nodei.co/npm/excaliburjs/)
+
 This library allows you to work with Excalibur_ smart contracts.
 
 Node.js and NPM are required to use this library. It is available as excalibur in the NPM.
@@ -24,7 +26,7 @@ All the necessary information on the initial setup and use can be obtained here,
   * [An example how to swap tokens](#an-example-how-to-swap-tokens)
 * [Other](#other)
   * [Testing (mocha)](#testing-mocha)
-  * [Community](#community)
+  * [Community](#сommunity)
   * [Other implementations](#other-implementations)
 * [License](#license)
 

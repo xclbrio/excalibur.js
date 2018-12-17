@@ -1,10 +1,10 @@
 {
   "name": "excaliburjs",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "Excalibur_ JavaScript Library",
   "main": "excalibur.js",
   "scripts": {
-    "unit": "mocha test.js",
+    "unit": "mocha tests/test.js",
     "test": "npm run unit"
   },
   "repository": {
