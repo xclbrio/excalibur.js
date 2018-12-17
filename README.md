@@ -18,6 +18,7 @@ All the necessary information on the initial setup and use can be obtained here,
 
 * [Installation](#installation)
   * [Node.js](#nodejs)
+  * [Yarn](#yarn)
 * [Usage information](#usage-information)
   * [Import class for use in your project](#import-class-for-use-in-your-project)
   * [Create a class instance](#create-a-class-instance)
@@ -36,6 +37,12 @@ All the necessary information on the initial setup and use can be obtained here,
 
 ```bash
 npm install excaliburjs
+```
+
+### Yarn
+
+```bash
+yarn add excaliburjs
 ```
 
 ## Usage information
