@@ -1,10 +1,12 @@
-# Excalibur_ JavaScript Library [![NPM](https://nodei.co/npm/excaliburjs.png?mini=true)](https://nodei.co/npm/excaliburjs/)
+# Excalibur_ JavaScript Library
 
 [![](https://img.shields.io/badge/project-Excalibur__-ef5777.svg?style=popout-square)](https://github.com/xclbrio)
 [![GitHub](https://img.shields.io/github/license/xclbrio/ipfsWebDist.svg?style=flat-square)](https://github.com/xclbrio/excalibur.js/blob/1.0-dev/LICENSE)
 [![Travis (.com)](https://img.shields.io/travis/com/xclbrio/excalibur.js.svg?style=flat-square)](https://travis-ci.com/xclbrio/excalibur.js)
 [![GitHub release](https://img.shields.io/github/release/xclbrio/excalibur.js.svg?style=flat-square)](https://github.com/xclbrio/excalibur.js/releases)
 [![Gitter](https://img.shields.io/gitter/room/:user/:repo.svg?style=flat-square)](https://gitter.im/xclbrio/Lobby)
+
+[![NPM](https://nodei.co/npm/excaliburjs.png?mini=true)](https://nodei.co/npm/excaliburjs/)
 
 This library allows you to work with Excalibur_ smart contracts.
 
