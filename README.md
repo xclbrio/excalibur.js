@@ -21,6 +21,7 @@ All the necessary information on the initial setup and use can be obtained here,
   * [Create a class instance](#create-a-class-instance)
   * [Get methods for working with it](#get-methods-for-working-with-it)
   * [An example of a method call](#an-example-of-a-method-call)
+  * [An example how to swap tokens](#an-example-how-to-swap-tokens)
 * [Other](#other)
   * [Testing (mocha)](#testing-mocha)
   * [Community](#сommunity)
@@ -67,6 +68,14 @@ Example of a method call on an object:
 
 ```js
 exchange.versions();
+```
+
+### An example how to swap tokens
+
+Example of a method call for the exchange of users' assets:
+
+```js
+exchange.swapTokens();
 ```
 
 ## Other
