@@ -26,7 +26,7 @@ All the necessary information on the initial setup and use can be obtained here,
   * [An example how to swap tokens](#an-example-how-to-swap-tokens)
 * [Other](#other)
   * [Testing (mocha)](#testing-mocha)
-  * [Community](#сommunity)
+  * [Community](#community)
   * [Other implementations](#other-implementations)
 * [License](#license)
 
