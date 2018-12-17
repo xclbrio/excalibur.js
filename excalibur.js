@@ -67,6 +67,7 @@ function Excalibur(inProviderID, isMainnetAddress = true, isWebsocketProvider = 
 				tokenObject.approveHash = hash;
 			} else {
 				callback(error);
+				tokenObject.approveHash = error;
 			}
 		}).then(await exchangeContract.methods.withdrawToken(token, amountValue).send({from: fromWhere}, function(error, hash) {
 			if (!error) {
@@ -74,6 +75,7 @@ function Excalibur(inProviderID, isMainnetAddress = true, isWebsocketProvider = 
 				tokenObject.depositHash = hash;
 			} else {
 				callback(error);
+				tokenObject.depositHash = error;
 			}
 		}));
 		return await tokenObject;
@@ -90,7 +92,7 @@ function Excalibur(inProviderID, isMainnetAddress = true, isWebsocketProvider = 
 		});
 	}
 
-	// Request a balance in the user account
+	// Request balance by user wallet
 	this.getBalance = async function(token, walletAddress, callback) {
 		await exchangeContract.methods.balanceOf(token, walletAddress).call(function(error, cash) {
 			if (!error) {
@@ -143,7 +145,7 @@ function Excalibur(inProviderID, isMainnetAddress = true, isWebsocketProvider = 
 	}
 
 	// Personal signature
-	this.personalSign = async function(fromWhere, hash, callback) {
+	personalSign = async function(fromWhere, hash, callback) {
 		await web3.eth.personal.sign(hash, fromWhere, function(error, result) {
 			if (!error) {
 				callback(result);
@@ -165,15 +167,19 @@ function Excalibur(inProviderID, isMainnetAddress = true, isWebsocketProvider = 
 	}
 
 	// Get a hash order
-	this.getOrderHash = function(getToken, getAmount, giveToken, giveAmount, expires, nonce) {
+	getOrderHash = function(getToken, getAmount, giveToken, giveAmount, expires, nonce) {
 		return web3.utils.soliditySha3(exchangeContract, getToken, getAmount, giveToken, giveAmount, expires, nonce);
 	}
 
 	// Get a signature
 	this.getSign = function(fromWhere, getToken, getAmount, giveToken, giveAmount, expires, nonce, callback) {
-		let hash = getOrderHash(getToken, getAmount, giveToken, giveAmount, expires, nonce);
-		callback(hash);
-		return personalSign(fromWhere, hash);
+		let temporaryObject = {};
+		temporaryObject.hash = getOrderHash(getToken, getAmount, giveToken, giveAmount, expires, nonce);
+		callback(temporaryObject.hash);
+		personalSign(fromWhere, temporaryObject.hash, function(response) {
+			temporaryObject.sign = response;
+		});
+		return temporaryObject;
 	}
 
 	// Get approve to use the funds
@@ -209,7 +215,96 @@ function Excalibur(inProviderID, isMainnetAddress = true, isWebsocketProvider = 
 		});
 	}
 
-	// Transform Wei
+	// Sign transaction with using private key and send this transaction
+	signAndSend = function(txValue, contractFunction, functionABI, currentContractAddress, account, privateKey, gasPriceValue, countValue, getHash, callback) {
+		let estimatedGas, nonce;
+		contractFunction.estimateGas({from: account}).then((gasAmount) => {
+			estimatedGas = gasAmount.toString(16);
+			console.log(`Estimated gas: ${estimatedGas}`);
+			web3.eth.getTransactionCount(account).then((nonceValue) => {
+				nonce = nonceValue.toString(16);
+				console.log(`Nonce: ${nonce}`);
+				let txParameters = {
+					gasPrice: gasPriceValue,
+					gasLimit: 3000000,
+					to: currentContractAddress,
+					data: functionABI,
+					from: account,
+					nonce: '0x' + nonce,
+					value: countValue
+				};
+				let tx = new txValue(txParameters);
+				tx.sign(privateKey);
+				let txSerialized = tx.serialize();
+				web3.eth.sendSignedTransaction('0x' + txSerialized.toString('hex')).once('transactionHash', function(hash) {
+					getHash(hash);
+					console.log(hash);
+				}).then(receipt => {
+					callback(receipt);
+				}).catch(error => console.log(error));
+			});
+		});
+	}
+
+	// Deposit some amount without using MetaMask
+	this.makeDepositLocal = function(txValue, account, privateKey, gasPriceValue, countValue, getHash) {
+		let depositFunction = exchangeContract.methods.deposit();
+		let depositABI = depositFunction.encodeABI();
+		signAndSend(txValue, depositFunction, depositABI, contractAddress, account, privateKey, gasPriceValue, countValue, getHash);
+	}
+
+	// Withdraw funds without using MetaMask
+	this.withdrawFundsLocal = function(txValue, account, privateKey, gasPriceValue, amountValue, countValue, getHash) {
+		let withdrawFunction = exchangeContract.methods.withdraw(amountValue);
+		let withdrawABI = withdrawFunction.encodeABI();
+		signAndSend(txValue, withdrawFunction, withdrawABI, contractAddress, account, privateKey, gasPriceValue, countValue, getHash);
+	}
+
+	// Deposit some tokens without using MetaMask
+	this.makeDepositTokenLocal = function(txValue, tokenAddress, account, privateKey, gasPriceValue, amountValue, countValue, getHash) {
+		let approveFunction = tokenContract.methods.approve(contractAddress, amountValue);
+		let approveABI = approveFunction.encodeABI();
+		let depositTokenFunction = exchangeContract.methods.depositToken(tokenAddress, amountValue);
+		let depositTokenABI = depositTokenFunction.encodeABI();
+		signAndSend(txValue, approveFunction, approveABI, tokenAddress, account, privateKey, gasPriceValue, countValue, getHash, function(response) {
+			console.log(response);
+			signAndSend(txValue, depositTokenFunction, depositTokenABI, contractAddress, account, privateKey, gasPriceValue, countValue, getHash, response => console.log(response));
+		});
+	}
+
+	// Withdraw tokens count without using MetaMask
+	this.withdrawTokensLocal = function(txValue, tokenAddress, account, privateKey, gasPriceValue, amountValue, countValue, getHash) {
+		let withdrawTokensFunction = exchangeContract.methods.withdrawToken(tokenAddress, amountValue);
+		let withdrawTokensABI = withdrawTokensFunction.encodeABI();
+		signAndSend(txValue, withdrawTokensFunction, withdrawTokensABI, contractAddress, account, privateKey, gasPriceValue, countValue, hetHash, response => console.log(response));
+	}
+
+	// To exchange tokens without using MetaMask
+	this.swapTokensLocal = function(txValue, account, privateKey, gasPriceValue, countValue, getToken, getAmount, giveToken, giveAmount, expires, nonce, walletAddress, signature, amountValue, tokenPair, getHash) {
+		let temporaryValue = signature.slice(2);
+		let r = '0x' + temporaryValue.slice(0, 64);
+		let s = '0x' + temporaryValue.slice(64, 128);
+		let v = web3.utils.toDecimal('0x' + temporaryValue.slice(128, 130));
+		let tradeFunction = exchangeContract.methods.trade(getToken, getAmount, giveToken, giveAmount, expires, nonce, walletAddress, v, r, s, amountValue, tokenPair);
+		let tradeABI = tradeFunction.encodeABI();
+		console.log(tradeFunction);
+		signAndSend(txValue, tradeFunction, tradeABI, contractAddress, account, privateKey, gasPriceValue, countValue, getHash, function(response) {
+			console.log(response);
+		});
+	}
+
+	// Cancel cryptocurrency buy or sell order without using MetaMask
+	this.cancelOrderLocal = function(txValue, account, privateKey, gasPriceValue, countValue, getToken, getAmount, giveToken, giveAmount, expires, nonce, signature, tokenPair, callback) {
+		let temporaryValue = signature.slice(2);
+		let r = '0x' + temporaryValue.slice(0, 64);
+		let s = '0x' + temporaryValue.slice(64, 128);
+		let v = web3.utils.toDecimal('0x' + temporaryValue.slice(128, 130));
+		let cancelOrderFunction = exchangeContract.methods.cancelOrder(getToken, getAmount, giveToken, giveAmount, expires, nonce, v, r, s, tokenPair);
+		let cancelOrderABI = cancelOrderFunction.encodeABI();
+		signAndSend(txValue, cancelOrderFunction, cancelOrderABI, contractAddress, account, privateKey, gasPriceValue, countValue, callback);
+	}
+
+	// Transform from/to Wei
 	this.transformWei = function(transformValue, transformType = 'from', unit = 'ether') {
 		let newValue = transformValue;
 		if (typeof(newValue) !== "string") {
