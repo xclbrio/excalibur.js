@@ -17,7 +17,7 @@ All the necessary information on the initial setup and use can be obtained here,
 ## Table of Contents
 
 * [Installation](#installation)
-  * [Node.js](#nodejs)
+  * [NPM](#npm)
   * [Yarn](#yarn)
 * [Usage information](#usage-information)
   * [Import class for use in your project](#import-class-for-use-in-your-project)
@@ -33,7 +33,7 @@ All the necessary information on the initial setup and use can be obtained here,
 
 ## Installation
 
-### Node.js
+### NPM
 
 ```bash
 npm install excaliburjs
