@@ -39,7 +39,29 @@ function Excalibur(inProviderID, isMainnetAddress = true, isWebsocketProvider = 
 	// Importing the contract address from the `settings.json` file
 	let contractAddress = (isMainnetAddress === true) ? Settings.mainnetAddress : Settings.kovanAddress;
 	// Creating an object `web3` from the library `Web3`
-	let web3 = (isWebsocketProvider === true) ? new Web3(new Web3.providers.WebsocketProvider(providerID)) : new Web3(new Web3.providers.HttpProvider(providerID));
+	
+	let web3;
+
+	try {
+		if (window.ethereum) {
+			// Modern dapp browsers...
+			window.web3 = new Web3(ethereum);
+			try {
+				ethereum.enable();
+			} catch (error) {
+				throw error
+			}
+		} else if (window.web3) {
+			// Legacy dapp browsers...
+			window.web3 = new Web3(web3.currentProvider);
+		} else {
+			// Non-dapp browsers..
+			window.web3 = (isWebsocketProvider === true) ? new Web3(new Web3.providers.WebsocketProvider(providerID)) : new Web3(new Web3.providers.HttpProvider(providerID));
+		}
+	} catch(e) {
+		// node.js...
+		web3 = (isWebsocketProvider === true) ? new Web3(new Web3.providers.WebsocketProvider(providerID)) : new Web3(new Web3.providers.HttpProvider(providerID));
+	}
 	// Import exchange ABI from `settings.json`
 	let exchangeABI = Settings.exchangeABI;
 	// Importing token ABI from `settings.json`
