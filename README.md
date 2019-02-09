@@ -12,7 +12,7 @@ This library allows you to work with Excalibur_ smart contracts.
 
 Node.js and NPM are required to use this library. It is available as excalibur in the NPM.
 
-All the necessary information on the initial setup and use can be obtained here, additional information can be obtained from the [documentation](https://github.com/xclbrio/wiki/wiki/JavaScript-API) for this library.
+All the necessary information on the initial setup and use can be obtained here, additional information can be obtained from the [documentation](https://github.com/xclbrio/wiki/wiki/JavaScript-Library) for this library.
 
 ## Table of Contents
 
