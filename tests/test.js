@@ -1,8 +1,10 @@
 let mocha = require("mocha");
 let assert = require("assert");
 
-const Excalibur = require("./excalibur.js");
+const Excalibur = require("../excalibur.js");
 let excalibur = new Excalibur("https://kovan.infura.io", false, false);
+
+
 
 
 describe("Transform from/to Wei", function() {
@@ -99,6 +101,54 @@ describe("Transform from/to Wei", function() {
 
 		it("Output value 5", function() {
 			assert.strictEqual(excalibur.transformWei(31138, 'to', 'kwei'), "31138000", "This will passed");
+		});
+
+	});
+
+	describe("From wei to nano", function() {
+		
+		it("Output value 1", function() {
+			assert.strictEqual(excalibur.transformWei(1E3, 'from', 'nano'), "0.000001", "This will passed");
+		});
+
+		it("Output value 2", function() {
+			assert.strictEqual(excalibur.transformWei("10000", 'from', 'nano'), "0.00001", "This will passed");
+		});		
+
+		it("Output value 3", function() {
+			assert.strictEqual(excalibur.transformWei(1E10, 'from', 'nano'), "10", "This will passed");
+		});
+
+		it("Output value 4", function() {
+			assert.strictEqual(excalibur.transformWei("31138", 'from', 'nano'), "0.000031138", "This will passed");
+		});
+
+		it("Output value 5", function() {
+			assert.strictEqual(excalibur.transformWei(31138, 'from', 'nano'), "0.000031138", "This will passed");
+		});
+
+	});
+
+	describe("From nano to wei", function() {
+		
+		it("Output value 1", function() {
+			assert.strictEqual(excalibur.transformWei(1E-3, 'to', 'nano'), "1000000", "This will passed");
+		});
+
+		it("Output value 2", function() {
+			assert.strictEqual(excalibur.transformWei("10000", 'to', 'nano'), "10000000000000", "This will passed");
+		});		
+
+		it("Output value 3", function() {
+			assert.strictEqual(excalibur.transformWei(1E-1, 'to', 'nano'), "100000000", "This will passed");
+		});
+
+		it("Output value 4", function() {
+			assert.strictEqual(excalibur.transformWei("31138", 'to', 'nano'), "31138000000000", "This will passed");
+		});
+
+		it("Output value 5", function() {
+			assert.strictEqual(excalibur.transformWei(31138, 'to', 'nano'), "31138000000000", "This will passed");
 		});
 
 	});
