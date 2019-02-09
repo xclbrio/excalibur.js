@@ -22,7 +22,7 @@
   "homepage": "https://github.com/xclbrio/excalibur.js#readme",
   "dependencies": {
     "ethereumjs-tx": "^1.3.7",
-    "web3": "^1.0.0-beta.46"
+    "web3": "^1.0.0-beta.37"
   },
   "keywords": [
     "smart contract",
