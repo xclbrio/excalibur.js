@@ -12,30 +12,36 @@ This library allows you to work with Excalibur_ smart contracts.
 
 Node.js and NPM are required to use this library. It is available as excalibur in the NPM.
 
-All the necessary information on the initial setup and use can be obtained here, additional information can be obtained from the [documentation](https://github.com/xclbrio/wiki/wiki/JavaScript-API) for this library.
+All the necessary information on the initial setup and use can be obtained here, additional information can be obtained from the [documentation](https://github.com/xclbrio/wiki/wiki/JavaScript-Library) for this library.
 
 ## Table of Contents
 
 * [Installation](#installation)
-  * [Node.js](#nodejs)
+  * [NPM](#npm)
+  * [Yarn](#yarn)
 * [Usage information](#usage-information)
   * [Import class for use in your project](#import-class-for-use-in-your-project)
   * [Create a class instance](#create-a-class-instance)
   * [Get methods for working with it](#get-methods-for-working-with-it)
   * [An example of a method call](#an-example-of-a-method-call)
-  * [An example how to swap tokens](#an-example-how-to-swap-tokens)
 * [Other](#other)
   * [Testing (mocha)](#testing-mocha)
-  * [Community](#community)
+  * [Community](#сommunity)
   * [Other implementations](#other-implementations)
 * [License](#license)
 
 ## Installation
 
-### Node.js
+### NPM
 
 ```bash
 npm install excaliburjs
+```
+
+### Yarn
+
+```bash
+yarn add excaliburjs
 ```
 
 ## Usage information
@@ -69,15 +75,7 @@ console.log(exchange);
 Example of a method call on an object:
 
 ```js
-exchange.versions();
-```
-
-### An example how to swap tokens
-
-Example of a method call for the exchange of users' assets:
-
-```js
-exchange.swapTokens();
+exchange.version();
 ```
 
 ## Other
