@@ -3,8 +3,6 @@
 
 	"mainnetAddress": "0x9419fbecfa0a9e38a96be2d818daa13dca72396e",
 
-	"libraryVersion": "1.0.6",
-
 	"exchangeABI": [
 		{
 			"type": "constructor",
